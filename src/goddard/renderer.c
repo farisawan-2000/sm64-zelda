@@ -2659,7 +2659,13 @@ void gd_create_perspective_matrix(f32 fovy, f32 aspect, f32 near, f32 far) {
     UNUSED f32 unusedf = 0.0625f;
 
     sGdPerspTimer += 0.1;
-    guPerspective(&DL_CURRENT_MTX(sCurrentGdDl), &perspNorm, fovy, aspect, near, far, 1.0f);
+    guOrtho(&DL_CURRENT_MTX(sCurrentGdDl), -960.0f,
+            960.0f,
+            -720.0f,
+            720.0f,
+            -16384.0f,
+            8192.0f,
+            0.5f);
 
     gSPPerspNormalize(next_gfx(), perspNorm);
 

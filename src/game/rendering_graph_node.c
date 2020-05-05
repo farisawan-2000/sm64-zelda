@@ -248,15 +248,16 @@ static void geo_process_perspective(struct GraphNodePerspective *node) {
         f32 aspect = (f32) gCurGraphNodeRoot->width / (f32) gCurGraphNodeRoot->height;
 #endif
 
-        guPerspective(mtx, &perspNorm, node->fov, aspect, node->near, node->far, 1.0f);
-        guOrtho(mtx, -960.0f,
-            960.0f,
-            -720.0f,
-            720.0f,
+        // guPerspective(mtx, &perspNorm, node->fov, aspect, node->near, node->far, 0.1f);
+        // gSPPerspNormalize(gDisplayListHead++, 0xffff);
+        
+        guOrtho(mtx, -3840.0f,
+            3840.0f,
+            -2880.0f,
+            2880.0f,
             -16384.0f,
             8192.0f,
-            1.0f);
-        gSPPerspNormalize(gDisplayListHead++, 0xffff);
+            0.5f);
 
         gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
 

@@ -72,12 +72,12 @@ struct newcam_hardpos newcam_fixedcam[] =
     u8 accel = 10;
 #endif // noaccel
 
-s16 newcam_yaw; //Z axis rotation
+s16 newcam_yaw = -23000; //Z axis rotation
 s8 newcam_yaw_acc;
-s16 newcam_tilt = 1500; //Y axis rotation
+s16 newcam_tilt = 5000; //Y axis rotation
 s8 newcam_tilt_acc;
-u16 newcam_distance = 750; //The distance the camera stays from the player
-u16 newcam_distance_target = 750; //The distance the player camera tries to reach.
+u32 newcam_distance = 750; //The distance the camera stays from the player
+u32 newcam_distance_target = 750; //The distance the player camera tries to reach.
 f32 newcam_pos_target[3]; //The position the camera is basing calculations off. *usually* Mario.
 f32 newcam_pos[3]; //Position the camera is in the world
 f32 newcam_lookat[3]; //Position the camera is looking at
@@ -116,9 +116,9 @@ u8 newcam_strings[][64] = {{NC_BUTTON}, {NC_BUTTON2}, {NC_OPTION}, {NC_HIGHLIGHT
 
 void newcam_init(struct Camera *c, u8 dv)
 {
-    newcam_tilt = 1500;
+    newcam_tilt = 5000;
     newcam_distance_target = newcam_distance_values[dv];
-    newcam_yaw = -c->yaw+0x4000; //Mario and the camera's yaw have this offset between them.
+    newcam_yaw = -25000;//-c->yaw+0x4000; //Mario and the camera's yaw have this offset between them.
     newcam_mode = NC_MODE_NORMAL;
 
     switch (gCurrLevelNum)

@@ -1787,29 +1787,29 @@ enum {
 };
 
 static s32 act_intro_cutscene(struct MarioState *m) {
-    switch (m->actionArg) {
-        case INTRO_CUTSCENE_HIDE_HUD_AND_MARIO:
-            intro_cutscene_hide_hud_and_mario(m);
-            break;
-        case INTRO_CUTSCENE_PEACH_LAKITU_SCENE:
-            intro_cutscene_peach_lakitu_scene(m);
-            break;
-        case INTRO_CUTSCENE_RAISE_PIPE:
-            intro_cutscene_raise_pipe(m);
-            break;
-        case INTRO_CUTSCENE_JUMP_OUT_OF_PIPE:
-            intro_cutscene_jump_out_of_pipe(m);
-            break;
-        case INTRO_CUTSCENE_LAND_OUTSIDE_PIPE:
-            intro_cutscene_land_outside_pipe(m);
-            break;
-        case INTRO_CUTSCENE_LOWER_PIPE:
-            intro_cutscene_lower_pipe(m);
-            break;
-        case INTRO_CUTSCENE_SET_MARIO_TO_IDLE:
+    // switch (m->actionArg) {
+    //     case INTRO_CUTSCENE_HIDE_HUD_AND_MARIO:
+    //         intro_cutscene_hide_hud_and_mario(m);
+    //         break;
+    //     case INTRO_CUTSCENE_PEACH_LAKITU_SCENE:
+    //         intro_cutscene_peach_lakitu_scene(m);
+    //         break;
+    //     case INTRO_CUTSCENE_RAISE_PIPE:
+    //         intro_cutscene_raise_pipe(m);
+    //         break;
+    //     case INTRO_CUTSCENE_JUMP_OUT_OF_PIPE:
+    //         intro_cutscene_jump_out_of_pipe(m);
+    //         break;
+    //     case INTRO_CUTSCENE_LAND_OUTSIDE_PIPE:
+    //         intro_cutscene_land_outside_pipe(m);
+    //         break;
+    //     case INTRO_CUTSCENE_LOWER_PIPE:
+    //         intro_cutscene_lower_pipe(m);
+    //         break;
+    //     case INTRO_CUTSCENE_SET_MARIO_TO_IDLE:
             intro_cutscene_set_mario_to_idle(m);
-            break;
-    }
+    //         break;
+    // }
     return FALSE;
 }
 
@@ -2645,7 +2645,7 @@ s32 mario_execute_cutscene_action(struct MarioState *m) {
     /* clang-format off */
     switch (m->action) {
         case ACT_DISAPPEARED:                cancel = act_disappeared(m);                break;
-        case ACT_INTRO_CUTSCENE:             cancel = act_intro_cutscene(m);             break;
+        case ACT_INTRO_CUTSCENE:             cancel = act_idle(m);             break;
         case ACT_STAR_DANCE_EXIT:            cancel = act_star_dance(m);                 break;
         case ACT_STAR_DANCE_NO_EXIT:         cancel = act_star_dance(m);                 break;
         case ACT_STAR_DANCE_WATER:           cancel = act_star_dance_water(m);           break;

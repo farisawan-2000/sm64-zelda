@@ -4,7 +4,7 @@
 #include <PR/mbi.h>
 #include <PR/ultratypes.h>
 
-#define GU_PI 3.1415926
+#define GU_PI 3.141592653589793238462643383279502884197169399375105820974944
 /* Functions */
 
 void guPerspectiveF(float mf[4][4], u16 *perspNorm, float fovy, float aspect,

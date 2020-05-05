@@ -9,6 +9,7 @@
 #include "enhancements/bettercamera.h"
 #include "mario.h"
 #include "game_init.h"
+#include "engine/math_util.h"
 #include "main.h"
 #include "debug.h"
 #include "object_list_processor.h"
@@ -448,9 +449,15 @@ void stub_debug_5(void) {
  * information depending on the debug sys ID. Additional information (updated obj
  * count, floor misses, and an unknown wall counter) is also printed.
  */
+// u8 
+extern struct Object *gMarioObject;
 void try_print_debug_mario_object_info(void) {
-    newcam_distance_target = 1500;
+    // newcam_distance_target = 5000;
     // newcam_diagnostics();
+    newcam_tilt = 5000;
+    newcam_yaw = -25000;
+    if (gMarioObject)
+        vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
 }
 
 /*

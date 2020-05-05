@@ -4,7 +4,7 @@
 #define NC_MODE_8D                0x3
 #define NC_MODE_FIXED_NOMOVE      0x4
 #define NC_MODE_NOTURN            0x5
-#define NC_DEBUG
+// #define NEWCAM_DEBUG
 
 
 extern void newcam_display_options();
@@ -25,5 +25,6 @@ extern u8 newcam_intendedmode;
 
 extern u8 newcam_mode;
 extern s16 newcam_yaw;
-extern u16 newcam_distance_target;
+extern s16 newcam_tilt;
+extern u32 newcam_distance_target;
 
