@@ -6,6 +6,7 @@
 #include "audio/external.h"
 #include "print.h"
 #include "engine/surface_collision.h"
+#include "enhancements/bettercamera.h"
 #include "mario.h"
 #include "game_init.h"
 #include "main.h"
@@ -448,31 +449,8 @@ void stub_debug_5(void) {
  * count, floor misses, and an unknown wall counter) is also printed.
  */
 void try_print_debug_mario_object_info(void) {
-    if (gMarioObject != NULL) {
-        switch (sDebugPage) {
-            case DEBUG_PAGE_CHECKSURFACEINFO:
-                print_surfaceinfo();
-                break;
-            case DEBUG_PAGE_EFFECTINFO:
-                print_effectinfo();
-                break;
-            case DEBUG_PAGE_ENEMYINFO:
-                print_enemyinfo();
-                break;
-            default:
-                break;
-        }
-    }
-
-    print_debug_top_down_mapinfo("obj  %d", gObjectCounter);
-
-    if (gNumFindFloorMisses) {
-        print_debug_bottom_up("NULLBG %d", gNumFindFloorMisses);
-    }
-
-    if (gUnknownWallCount) {
-        print_debug_bottom_up("WALL   %d", gUnknownWallCount);
-    }
+    newcam_distance_target = 1500;
+    // newcam_diagnostics();
 }
 
 /*
