@@ -5,12 +5,17 @@
 #include "object_helpers.h"
 #include "audio/external.h"
 #include "print.h"
+#include "hud.h"
 #include "engine/surface_collision.h"
 #include "enhancements/bettercamera.h"
 #include "mario.h"
 #include "game_init.h"
 #include "engine/math_util.h"
 #include "main.h"
+#include "seq_ids.h"
+#include "ingame_menu.h"
+#include "area.h"
+#include "segment2.h"
 #include "debug.h"
 #include "object_list_processor.h"
 #include "behavior_data.h"
@@ -443,21 +448,34 @@ void try_modify_debug_controls(void) {
 // possibly a removed debug control (TODO: check DD)
 void stub_debug_5(void) {
 }
-
-/*
- * If Mario's object exists, this function tries to print available object debug
- * information depending on the debug sys ID. Additional information (updated obj
- * count, floor misses, and an unknown wall counter) is also printed.
- */
-// u8 
+#include "text_strings.h"
 extern struct Object *gMarioObject;
+extern struct MarioState *gMarioState;
+
+
+void printsss(s16 x, s16 y, u8 str[]) {
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 80, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+    print_text(55, 55, "TEST");
+    print_generic_string(x, y, str);
+
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    // gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+}
+
+u8 myQuotes[2][64] = {{TEXT_SAVED_DATA_EXISTS}, {QUOTE_1}};
 void try_print_debug_mario_object_info(void) {
-    // newcam_distance_target = 5000;
-    // newcam_diagnostics();
     newcam_tilt = 5000;
     newcam_yaw = -25000;
-    if (gMarioObject)
+
+    if (gPlayer1Controller->buttonDown & L_TRIG)
+        printsss(160,50,myQuotes[0]);
+
+    if (gMarioObject){
         vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
+    }
 }
 
 /*

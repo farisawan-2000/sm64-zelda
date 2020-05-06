@@ -1398,7 +1398,7 @@ s32 act_bbh_enter_jump(struct MarioState *m) {
 }
 
 s32 act_teleport_fade_out(struct MarioState *m) {
-    play_sound_if_no_flag(m, SOUND_ACTION_TELEPORT, MARIO_ACTION_SOUND_PLAYED);
+    // play_sound_if_no_flag(m, SOUND_ACTION_TELEPORT, MARIO_ACTION_SOUND_PLAYED);
     set_mario_animation(m, m->prevAction == ACT_CROUCHING ? MARIO_ANIM_CROUCHING
                                                           : MARIO_ANIM_FIRST_PERSON);
                                                           
@@ -1425,7 +1425,7 @@ s32 act_teleport_fade_out(struct MarioState *m) {
 }
 
 s32 act_teleport_fade_in(struct MarioState *m) {
-    play_sound_if_no_flag(m, SOUND_ACTION_TELEPORT, MARIO_ACTION_SOUND_PLAYED);
+    // play_sound_if_no_flag(m, SOUND_ACTION_TELEPORT, MARIO_ACTION_SOUND_PLAYED);
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
 
 #ifdef VERSION_SH
@@ -1806,7 +1806,7 @@ static s32 act_intro_cutscene(struct MarioState *m) {
     //     case INTRO_CUTSCENE_LOWER_PIPE:
     //         intro_cutscene_lower_pipe(m);
     //         break;
-    //     case INTRO_CUTSCENE_SET_MARIO_TO_IDLE:
+        m->actionArg = INTRO_CUTSCENE_SET_MARIO_TO_IDLE;
             intro_cutscene_set_mario_to_idle(m);
     //         break;
     // }

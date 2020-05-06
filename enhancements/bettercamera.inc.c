@@ -110,7 +110,7 @@ u8 newcam_option_scroll_last = 0;
 u8 newcam_total = 7; //How many options there are in newcam_uptions.
 u16 sSoundMode;
 
-u8 newcam_options[][64] = {{NC_ANALOGUE}, {NC_CAMX}, {NC_CAMY}, {NC_INVERTX}, {NC_INVERTY}, {NC_CAMC}, {NC_CAMP}};
+u8 newcam_options[][64] = {{NC_ANALOGUE}, {NC_CAMX}, {NC_CAMY}, {NC_INVERTX}, {NC_INVERTY}, {NC_CAMC}, {NC_CAMP}, {QUOTE_1}};
 u8 newcam_flags[][64] = {{NC_DISABLED}, {NC_ENABLED}};
 u8 newcam_strings[][64] = {{NC_BUTTON}, {NC_BUTTON2}, {NC_OPTION}, {NC_HIGHLIGHT}};
 

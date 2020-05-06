@@ -165,6 +165,9 @@
 #define TEXT_MONO _("MONO")
 #define TEXT_HEADSET _("HEADSET")
 
+// Quotes
+#define QUOTE_1 _("When you walkin LOL")
+
 // Misc Menu Text
 #define TEXT_SAVED_DATA_EXISTS _("SAVED DATA EXITS") // Misspell
 #define TEXT_NO_SAVED_DATA_EXISTS _("NO SAVED DATA EXISTS")

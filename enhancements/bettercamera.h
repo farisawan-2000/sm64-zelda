@@ -8,6 +8,7 @@
 
 
 extern void newcam_display_options();
+extern void newcam_text(s16, s16, u8[], u8);
 extern void newcam_check_pause_buttons();
 
 extern u8 newcam_option_open;
@@ -22,6 +23,8 @@ extern u8 newcam_active; // basically the thing that governs if newcam is on.
 extern u16 sSoundMode;
 extern u8 newcam_analogue;
 extern u8 newcam_intendedmode;
+
+extern u8 newcam_options[][64];
 
 extern u8 newcam_mode;
 extern s16 newcam_yaw;
