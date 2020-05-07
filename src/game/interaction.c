@@ -849,9 +849,10 @@ u32 interact_bbh_entrance(struct MarioState *m, UNUSED u32 interactType, struct 
     return FALSE;
 }
 
+#include "debug.h"
 u32 interact_warp(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
     u32 action;
-
+    textState = TEXT_FADING_IN;
     if (o->oInteractionSubtype & INT_SUBTYPE_FADING_WARP) {
         action = m->action;
 

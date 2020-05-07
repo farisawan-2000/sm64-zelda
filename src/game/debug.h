@@ -25,4 +25,16 @@ extern void try_print_debug_mario_object_info(void);
 extern void try_do_mario_debug_object_spawn(void);
 extern void try_print_debug_mario_level_info(void);
 
+extern void printsss(s16, s16, u8[]);
+extern void debug_resolveStrings(void);
+extern s16 textAlphaTimer;
+
+enum {
+    TEXT_FADING_IN,
+    TEXT_FADING_OUT,
+    TEXT_IDLE
+};
+
+extern u8 textState;
+
 #endif /* _DEBUG_H */

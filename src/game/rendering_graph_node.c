@@ -7,6 +7,7 @@
 #include "area.h"
 #include "shadow.h"
 #include "memory.h"
+#include "debug.h"
 #include "game_init.h"
 #include "rendering_graph_node.h"
 
@@ -247,17 +248,15 @@ static void geo_process_perspective(struct GraphNodePerspective *node) {
 #else
         f32 aspect = (f32) gCurGraphNodeRoot->width / (f32) gCurGraphNodeRoot->height;
 #endif
-
-        // guPerspective(mtx, &perspNorm, node->fov, aspect, node->near, node->far, 0.1f);
-        // gSPPerspNormalize(gDisplayListHead++, 0xffff);
-        
-        guOrtho(mtx, -3840.0f,
-            3840.0f,
-            -2880.0f,
-            2880.0f,
-            -16384.0f,
-            8192.0f,
-            0.5f);
+            // guPerspective(mtx, &perspNorm, node->fov, aspect, node->near, node->far, 0.1f);
+            // gSPPerspNormalize(gDisplayListHead++, 0xffff);
+            guOrtho(mtx, -3840.0f,
+                3840.0f,
+                -2880.0f,
+                2880.0f,
+                -16384.0f,
+                8192.0f,
+                0.5f);
 
         gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
 

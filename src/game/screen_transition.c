@@ -10,6 +10,7 @@
 #include "geo_misc.h"
 #include "segment2.h"
 #include "camera.h"
+#include "debug.h"
 
 u8 sTransitionColorFadeCount[4] = { 0 };
 u16 sTransitionTextureFadeCount[2] = { 0 };

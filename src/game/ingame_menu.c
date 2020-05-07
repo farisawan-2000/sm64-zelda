@@ -2795,7 +2795,6 @@ void play_star_fanfare_and_flash_hud(s32 arg, u8 starNum) {
 #define TXT_CLEAR_X1 get_string_width(name) + 81
 #define TXT_CLEAR_X2 get_string_width(name) + 79
 #endif
-
 void render_course_complete_lvl_info_and_hud_str(void) {
 #if defined(VERSION_JP) || defined(VERSION_SH)
     u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };

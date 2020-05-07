@@ -3,7 +3,7 @@
 
 #include "text_menu_strings.h"
 
-#define NC_CAMX 				_("Camera X Sensitivity")
+    #define NC_CAMX 				_("Camera X Sensitivity")
     #define NC_CAMY 				_("Camera Y Sensitivity")
 	#define NC_INVERTX				_("Invert X Axis")
 	#define NC_INVERTY				_("Invert Y Axis")
@@ -166,7 +166,12 @@
 #define TEXT_HEADSET _("HEADSET")
 
 // Quotes
-#define QUOTE_1 _("When you walkin LOL")
+#define QUOTE_1 _("The path of least resistance is the path of the loser.")
+#define QUOTE_2 _("I think I jump around more when I'm alone.")
+
+// Authors
+#define AUTHOR_1 _("- H.G. Wells")
+#define AUTHOR_2 _("- Nicolas Cage")
 
 // Misc Menu Text
 #define TEXT_SAVED_DATA_EXISTS _("SAVED DATA EXITS") // Misspell

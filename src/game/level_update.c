@@ -368,7 +368,7 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
 void init_mario_after_warp(void) {
     struct ObjectWarpNode *spawnNode = area_get_warp_node(sWarpDest.nodeId);
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
-
+    
     if (gMarioState->action != ACT_UNINITIALIZED) {
         gPlayerSpawnInfos[0].startPos[0] = (s16) spawnNode->object->oPosX;
         gPlayerSpawnInfos[0].startPos[1] = (s16) spawnNode->object->oPosY;

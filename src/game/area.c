@@ -12,8 +12,8 @@
 #include "mario_actions_cutscene.h"
 #include "print.h"
 #include "hud.h"
+#include "debug.h"
 #include "audio/external.h"
-#include "area.h"
 #include "rendering_graph_node.h"
 #include "level_update.h"
 #include "engine/geo_layout.h"
@@ -349,6 +349,8 @@ void play_transition(s16 transType, s16 time, u8 red, u8 green, u8 blue) {
     }
 }
 
+
+
 /*
  * Sets up the information needed to play a warp transition, including the
  * transition type, time in frames, and the RGB color that will fill the screen.
@@ -357,6 +359,14 @@ void play_transition(s16 transType, s16 time, u8 red, u8 green, u8 blue) {
 void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 blue, s16 delay) {
     gWarpTransDelay = delay; // Number of frames to delay playing the transition.
     play_transition(transType, time, red, green, blue);
+}
+
+
+
+
+
+void resolve_genString_rendering(void) {
+    debug_resolveStrings();
 }
 
 void render_game(void) {
@@ -410,7 +420,7 @@ void render_game(void) {
             clear_frame_buffer(gWarpTransFBSetColor);
         }
     }
-
+    resolve_genString_rendering();
     D_8032CE74 = NULL;
     D_8032CE78 = 0;
 }

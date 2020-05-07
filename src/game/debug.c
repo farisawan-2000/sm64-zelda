@@ -452,31 +452,58 @@ void stub_debug_5(void) {
 extern struct Object *gMarioObject;
 extern struct MarioState *gMarioState;
 
-
-void printsss(s16 x, s16 y, u8 str[]) {
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 80, SCREEN_WIDTH, SCREEN_HEIGHT);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
-    print_text(55, 55, "TEST");
-    print_generic_string(x, y, str);
-
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-    // gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
-}
-
-u8 myQuotes[2][64] = {{TEXT_SAVED_DATA_EXISTS}, {QUOTE_1}};
 void try_print_debug_mario_object_info(void) {
     newcam_tilt = 5000;
     newcam_yaw = -25000;
-
-    if (gPlayer1Controller->buttonDown & L_TRIG)
-        printsss(160,50,myQuotes[0]);
 
     if (gMarioObject){
         vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
     }
 }
+
+#include "print.h"
+#include "segment2.h"
+s16 textAlphaTimer = 255;
+s16 textFrames = 0;
+u8 textState = TEXT_IDLE;
+u8 quoteBuffer[][64]= {{QUOTE_1}, {QUOTE_2}};
+u8 authorBuffer[][64]= {{AUTHOR_1}, {AUTHOR_2}};
+void printsss(s16 x, s16 y, u8 str[]) {
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255 - textAlphaTimer);
+    print_generic_string(x, y, str);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+}
+u8 currentQuote = 0;
+
+u16 TransitionTimes[] = {50, 3, 105, 6};
+
+void debug_resolveStrings(void){
+    if (textState == TEXT_FADING_OUT){
+        textAlphaTimer+=TransitionTimes[3];
+    }
+    if (textState == TEXT_FADING_IN){
+        textAlphaTimer-=TransitionTimes[1];
+    }
+    if (textAlphaTimer > 255){
+        textAlphaTimer = 255;
+        currentQuote++;
+        textState = TEXT_IDLE;
+    }
+    if (textAlphaTimer < 0){
+        textAlphaTimer = 0;
+        // textState = TEXT_IDLE;
+        textFrames++;
+
+    }
+    if (textFrames == TransitionTimes[2]) {
+        textState = TEXT_FADING_OUT;
+        textFrames = 0;
+    }
+    printsss(45, 75, quoteBuffer[currentQuote]);
+    printsss(160, 40, authorBuffer[currentQuote]);
+}
+
 
 /*
  * Similar to above, but with level information. (checkinfo, mapinfo,
@@ -570,3 +597,4 @@ void debug_enemy_unknown(s16 *enemyArr) {
     enemyArr[6] = gDebugInfo[DEBUG_PAGE_ENEMYINFO][3];
     enemyArr[7] = gDebugInfo[DEBUG_PAGE_ENEMYINFO][4];
 }
+
