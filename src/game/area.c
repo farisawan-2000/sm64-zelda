@@ -176,8 +176,8 @@ void clear_areas(void) {
     s32 i;
 
     gCurrentArea = NULL;
-    gWarpTransition.isActive = FALSE;
-    gWarpTransition.pauseRendering = FALSE;
+    // gWarpTransition.isActive = FALSE;
+    // gWarpTransition.pauseRendering = FALSE;
     gMarioSpawnInfo->areaIndex = -1;
 
     for (i = 0; i < 8; i++) {
@@ -209,7 +209,7 @@ void clear_area_graph_nodes(void) {
     if (gCurrentArea != NULL) {
         geo_call_global_function_nodes(gCurrentArea->unk04, GEO_CONTEXT_AREA_UNLOAD);
         gCurrentArea = NULL;
-        gWarpTransition.isActive = FALSE;
+        // gWarpTransition.isActive = FALSE;
     }
 
     for (i = 0; i < 8; i++) {
@@ -246,12 +246,12 @@ void unload_area(void) {
 
         gCurrentArea->flags = 0;
         gCurrentArea = NULL;
-        gWarpTransition.isActive = FALSE;
+        // gWarpTransition.isActive = FALSE;
     }
 }
 
 void load_mario_area(void) {
-    func_80320890();
+    // func_80320890();
     load_area(gMarioSpawnInfo->areaIndex);
 
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
@@ -361,8 +361,16 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
     play_transition(transType, time, red, green, blue);
 }
 
+extern u16 gFrameBuffer0[SCREEN_WIDTH * SCREEN_HEIGHT];
 
-
+void darkenFrameBuffer(void) {
+    // u32 i;
+    // if (textState == TEXT_FADING_OUT){
+    //     for (i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT); i++){
+    //         gFrameBuffer0[i]-=1;
+    //     }
+    // }
+}
 
 
 void resolve_genString_rendering(void) {
@@ -420,6 +428,7 @@ void render_game(void) {
             clear_frame_buffer(gWarpTransFBSetColor);
         }
     }
+    darkenFrameBuffer();
     resolve_genString_rendering();
     D_8032CE74 = NULL;
     D_8032CE78 = 0;

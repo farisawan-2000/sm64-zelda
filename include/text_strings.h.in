@@ -166,12 +166,25 @@
 #define TEXT_HEADSET _("HEADSET")
 
 // Quotes
-#define QUOTE_1 _("The path of least resistance is the path of the loser.")
-#define QUOTE_2 _("I think I jump around more when I'm alone.")
+#define QUOTE_1L3 _("The path of least resistance is the path of the loser.")
+#define QUOTE_1L4 _("- H.G. Wells")
 
-// Authors
-#define AUTHOR_1 _("- H.G. Wells")
-#define AUTHOR_2 _("- Nicolas Cage")
+#define QUOTE_2L3 _("I think I jump around more when I'm alone.")
+#define QUOTE_2L4 _("- Nicolas Cage")
+
+#define QUOTE_3L3 _("To find out what man cherishes most,")
+#define QUOTE_3L4 _("observe how they hide their cookie jar.")
+
+
+
+#define QUOTE_SL2 _("I thought we told you")
+#define QUOTE_SL4 _("You're not welcome here anymore")
+
+
+
+
+
+
 
 // Misc Menu Text
 #define TEXT_SAVED_DATA_EXISTS _("SAVED DATA EXITS") // Misspell

@@ -449,13 +449,29 @@ void try_modify_debug_controls(void) {
 void stub_debug_5(void) {
 }
 #include "text_strings.h"
+#include "level_table.h"
 extern struct Object *gMarioObject;
 extern struct MarioState *gMarioState;
 
 void try_print_debug_mario_object_info(void) {
-    newcam_tilt = 5000;
-    newcam_yaw = -25000;
-
+    struct MarioState *m = gMarioState;
+    newcam_sensitivityX = 0;
+    newcam_sensitivityY = 0;
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        if (gCurrAreaIndex == 1) {
+            newcam_tilt = 5000;
+            newcam_yaw = -25000;
+        }
+        if (gCurrAreaIndex == 2) {
+            if ((m->action == ACT_LONG_JUMP))
+                newcam_tilt = 10000;
+            else {
+                newcam_tilt = 6600;
+            }
+            newcam_yaw = -25000;
+        }
+    }
+    print_text_fmt_int(55, 55, "%d", newcam_tilt);
     if (gMarioObject){
         vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
     }
@@ -466,17 +482,30 @@ void try_print_debug_mario_object_info(void) {
 s16 textAlphaTimer = 255;
 s16 textFrames = 0;
 u8 textState = TEXT_IDLE;
-u8 quoteBuffer[][64]= {{QUOTE_1}, {QUOTE_2}};
-u8 authorBuffer[][64]= {{AUTHOR_1}, {AUTHOR_2}};
 void printsss(s16 x, s16 y, u8 str[]) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255 - textAlphaTimer);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255 - textAlphaTimer);
     print_generic_string(x, y, str);
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 u8 currentQuote = 0;
 
 u16 TransitionTimes[] = {50, 3, 105, 6};
+
+u8 line1Buf[][64]= {{0}     , {0}     , {0}     };
+u8 line2Buf[][64]= {{0}     , {0}     , {0}     };
+u8 line3Buf[][94]= {{QUOTE_1L3}, {QUOTE_2L3}, {QUOTE_3L3}};
+u8 line4Buf[][64]= {{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}};
+
+void print_quote(void) {
+    if (line1Buf[currentQuote][0] != 0) printsss(15, 55, line1Buf[currentQuote]);
+    if (line2Buf[currentQuote][0] != 0) printsss(15, 40, line2Buf[currentQuote]);
+    if (line3Buf[currentQuote][0] != 0) printsss(15, 25, line3Buf[currentQuote]);
+    if (line4Buf[currentQuote][0] != 0) printsss(100, 10, line4Buf[currentQuote]);
+}
+
+
+
 
 void debug_resolveStrings(void){
     if (textState == TEXT_FADING_OUT){
@@ -492,7 +521,6 @@ void debug_resolveStrings(void){
     }
     if (textAlphaTimer < 0){
         textAlphaTimer = 0;
-        // textState = TEXT_IDLE;
         textFrames++;
 
     }
@@ -500,9 +528,9 @@ void debug_resolveStrings(void){
         textState = TEXT_FADING_OUT;
         textFrames = 0;
     }
-    printsss(45, 75, quoteBuffer[currentQuote]);
-    printsss(160, 40, authorBuffer[currentQuote]);
+    print_quote();
 }
+
 
 
 /*

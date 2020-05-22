@@ -1805,10 +1805,10 @@ void mario_process_interactions(struct MarioState *m) {
 }
 
 void check_death_barrier(struct MarioState *m) {
+    struct Object *tempObj;
     if (m->pos[1] < m->floorHeight + 2048.0f) {
-        if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_UNKNOWN_18)) {
-            play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
-        }
+        tempObj = cur_obj_nearest_object_with_behavior(bhvWarps74);
+        vec3f_copy(m->pos, tempObj->header.gfx.pos);
     }
 }
 

@@ -12,7 +12,7 @@ default: all
 # Version of the game to build
 VERSION ?= us
 # Graphics microcode used
-GRUCODE ?= f3d_old
+GRUCODE ?= f3dex2
 # If COMPARE is 1, check the output sha1sum when building 'all'
 COMPARE ?= 0
 # If NON_MATCHING is 1, define the NON_MATCHING and AVOID_UB macros when building (recommended)
@@ -24,6 +24,7 @@ COMPILER ?= ido
 
 ifeq ($(COMPILER),gcc)
   NON_MATCHING := 1
+  VERSION_CFLAGS := -mdivide-breaks
 endif
 
 # Release
@@ -38,7 +39,7 @@ else
 ifeq ($(VERSION),us)
   VERSION_CFLAGS := -DVERSION_US
   VERSION_ASFLAGS := --defsym VERSION_US=1
-  GRUCODE_CFLAGS := -DF3D_OLD
+  GRUCODE_CFLAGS := -DF3D_OLD -mdivide-breaks
   GRUCODE_ASFLAGS := --defsym F3D_OLD=1
   TARGET := sm64.us
 else
@@ -292,7 +293,7 @@ LDFLAGS := -T undefined_syms.txt -T $(BUILD_DIR)/$(LD_SCRIPT) -Map $(BUILD_DIR)/
 ENDIAN_BITWIDTH := $(BUILD_DIR)/endian-and-bitwidth
 
 ifeq ($(COMPILER),gcc)
-  CFLAGS := -march=vr4300 -mfix4300 -mno-shared -G 0 -mhard-float -fno-stack-protector -fno-common -I include -I src/ -I $(BUILD_DIR)/include -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv -Wall -Wextra $(COMMON_CFLAGS)
+  CFLAGS := -march=vr4300 -mdivide-breaks -mfix4300 -mno-shared -G 0 -mhard-float -fno-stack-protector -fno-common -I include -I src/ -I $(BUILD_DIR)/include -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv -Wall -Wextra $(COMMON_CFLAGS)
 endif
 
 ifeq ($(shell getconf LONG_BIT), 32)

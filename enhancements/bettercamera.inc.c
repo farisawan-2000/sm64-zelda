@@ -110,7 +110,7 @@ u8 newcam_option_scroll_last = 0;
 u8 newcam_total = 7; //How many options there are in newcam_uptions.
 u16 sSoundMode;
 
-u8 newcam_options[][64] = {{NC_ANALOGUE}, {NC_CAMX}, {NC_CAMY}, {NC_INVERTX}, {NC_INVERTY}, {NC_CAMC}, {NC_CAMP}, {QUOTE_1}};
+u8 newcam_options[][64] = {{NC_ANALOGUE}, {NC_CAMX}, {NC_CAMY}, {NC_INVERTX}, {NC_INVERTY}, {NC_CAMC}, {NC_CAMP}};
 u8 newcam_flags[][64] = {{NC_DISABLED}, {NC_ENABLED}};
 u8 newcam_strings[][64] = {{NC_BUTTON}, {NC_BUTTON2}, {NC_OPTION}, {NC_HIGHLIGHT}};
 
@@ -188,11 +188,11 @@ static newcam_approach_s16(s16 var, s16 val, s16 inc)
         return min(var - inc, val);
 }
 
-newcam_init_settings()
+void newcam_init_settings()
 {
     if (save_check_firsttime())
     {
-        save_file_get_setting();
+        // save_file_get_setting();
     }
     else
     {
@@ -358,8 +358,8 @@ static void newcam_zoom_button(void)
     //When you press L and R together, set the flag for centering the camera. Afterwards, start setting the yaw to the Player's yaw at the time.
     if (gPlayer1Controller->buttonDown & L_TRIG && gPlayer1Controller->buttonDown & R_TRIG && newcam_mode == NC_MODE_NORMAL)
     {
-        newcam_yaw_target = -gMarioState->faceAngle[1]-0x4000;
-        newcam_centering = 1;
+        // newcam_yaw_target = -gMarioState->faceAngle[1]-0x4000;
+        // newcam_centering = 1;
     }
     else //Each time the player presses R, but NOT L the camera zooms out more, until it hits the limit and resets back to close view.
     if (gPlayer1Controller->buttonPressed & R_TRIG)
@@ -407,8 +407,9 @@ static void newcam_update_values(void)
         }
         else
         {
-        if (gMarioState->intendedMag > 0 && gMarioState->vel[1] == 0 && newcam_mode == NC_MODE_NORMAL)
-            newcam_yaw = (approach_s16_symmetric(newcam_yaw,-gMarioState->faceAngle[1]-0x4000,gDelta*((newcam_aggression*(ABS(gPlayer1Controller->rawStickX/10)))*(gMarioState->forwardVel/32))));
+        if (gMarioState->intendedMag > 0 && gMarioState->vel[1] == 0 && newcam_mode == NC_MODE_NORMAL){
+            // newcam_yaw = (approach_s16_symmetric(newcam_yaw,-gMarioState->faceAngle[1]-0x4000,gDelta*((newcam_aggression*(ABS(gPlayer1Controller->rawStickX/10)))*(gMarioState->forwardVel/32))));
+        }
         else
             newcam_turnwait = 10;
         }
@@ -553,8 +554,8 @@ static void newcam_set_pan(void)
     //Apply panning values based on Mario's direction.
     if (gMarioState->action != ACT_HOLDING_BOWSER && gMarioState->action != ACT_SLEEPING && gMarioState->action != ACT_START_SLEEPING)
     {
-        approach_f32_asymptotic_bool(&newcam_pan_x, lengthdir_x((160*newcam_panlevel)/100, -gMarioState->faceAngle[1]-0x4000), gDelta*0.05);
-        approach_f32_asymptotic_bool(&newcam_pan_z, lengthdir_y((160*newcam_panlevel)/100, -gMarioState->faceAngle[1]-0x4000), gDelta*0.05);
+        // approach_f32_asymptotic_bool(&newcam_pan_x, lengthdir_x((160*newcam_panlevel)/100, -gMarioState->faceAngle[1]-0x4000), gDelta*0.05);
+        // approach_f32_asymptotic_bool(&newcam_pan_z, lengthdir_y((160*newcam_panlevel)/100, -gMarioState->faceAngle[1]-0x4000), gDelta*0.05);
     }
     else
     {

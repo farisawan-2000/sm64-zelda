@@ -33,9 +33,9 @@
 .if VERSION_US == 1
     .ascii "E"                  /* NTSC-U (North America) */
 .elseif (VERSION_JP == 1 || VERSION_SH == 1)
-    .ascii "J"                  /* NTSC-J (Japan) */
+    .ascii "E"                  /* NTSC-J (Japan) */
 .else
-    .ascii "P"                  /* PAL (Europe) */
+    .ascii "E"                  /* PAL (Europe) */
 .endif
 
 .if VERSION_SH == 1

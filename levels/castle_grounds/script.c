@@ -11,6 +11,7 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group0.h"
 
 #include "make_const_nonconst.h"
 #include "levels/castle_grounds/header.h"
@@ -92,6 +93,8 @@ static const LevelScript script_func_local_4[] = {
     RETURN(),
 };
 
+#include "transitionFuncs.c"
+
 const LevelScript level_castle_grounds_entry[] = {
     INIT_LEVEL(),
     LOAD_MIO0(        /*seg*/ 0x07, _castle_grounds_segment_7SegmentRomStart, _castle_grounds_segment_7SegmentRomEnd),
@@ -116,6 +119,7 @@ const LevelScript level_castle_grounds_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_VCUTM_GRILL,  castle_grounds_geo_00070C),
     LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_FLAG,         castle_grounds_geo_000660),
     LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_CANNON_GRILL, castle_grounds_geo_000724),
+    LOAD_MODEL_FROM_GEO(0xF1, myCamera_geo),
 
     //AREA(/*index*/ 1, castle_grounds_geo_00073C),
 //        WARP_NODE(/*id*/ 0xF1, /*destLevel*/ LEVEL_CASTLE_GROUNDS, /*destArea*/ 0x01, /*destNode*/ 0x03, /*flags*/ WARP_NO_CHECKPOINT),
@@ -132,9 +136,11 @@ const LevelScript level_castle_grounds_entry[] = {
     #include "levels/castle_grounds/script.inc.c"
 
 	FREE_LEVEL_POOL(),
-    MARIO_POS(0x01, 0, 7, 765, -6),
+    MARIO_POS(0x01, 0, 7, 141, -6),
     CALL(/*arg*/ 0, /*func*/ lvl_init_or_update),
     CALL_LOOP(/*arg*/ 1, /*func*/ lvl_init_or_update),
+    // CALL_LOOP(0, checkTransition),
+    // JUMP_IF(/*op*/ OP_EQ, /*arg*/ 1, level_mv_transition),
     CLEAR_LEVEL(),
     SLEEP_BEFORE_EXIT(/*frames*/ 1),
     EXIT(),

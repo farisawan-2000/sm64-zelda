@@ -1109,7 +1109,7 @@ s32 drop_and_set_mario_action(struct MarioState *m, u32 action, u32 actionArg) {
  * Increment Mario's hurt counter and set a new action.
  */
 s32 hurt_and_set_mario_action(struct MarioState *m, u32 action, u32 actionArg, s16 hurtCounter) {
-    m->hurtCounter = hurtCounter;
+    m->hurtCounter = 0;
 
     return set_mario_action(m, action, actionArg);
 }
@@ -1313,7 +1313,7 @@ void update_mario_joystick_inputs(struct MarioState *m) {
             m->intendedYaw = atan2s(-controller->stickY, controller->stickX)-newcam_yaw+0x4000;
         m->input |= INPUT_NONZERO_ANALOG;
     } else {
-        m->intendedYaw = m->faceAngle[1];
+        // m->intendedYaw = m->faceAngle[1];
     }
 }
 
@@ -1879,6 +1879,7 @@ void init_mario(void) {
 
         capObject->oMoveAngleYaw = 0;
     }
+    gMarioState->action = ACT_SLEEPING;
 }
 
 void init_mario_from_save_file(void) {
@@ -1904,4 +1905,5 @@ void init_mario_from_save_file(void) {
 
     gHudDisplay.coins = 0;
     gHudDisplay.wedges = 8;
+    gMarioState->action = ACT_SLEEPING;
 }

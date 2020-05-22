@@ -687,12 +687,13 @@ void geo_layout_cmd_node_generated(void) {
    cmd+0x02: s16 background // background ID, or RGBA5551 color if backgroundFunc is null
    cmd+0x04: GraphNodeFunc backgroundFunc
 */
+u16 lvl_background_color = 0x0000;
 void geo_layout_cmd_node_background(void) {
     struct GraphNodeBackground *graphNode;
-
+    lvl_background_color = cur_geo_cmd_s16(0x02);
     graphNode = init_graph_node_background(
         gGraphNodePool, NULL,
-        cur_geo_cmd_s16(0x02), // background ID, or RGBA5551 color if asm function is null
+        lvl_background_color, // background ID, or RGBA5551 color if asm function is null
         (GraphNodeFunc) cur_geo_cmd_ptr(0x04), // asm function
         0);
 

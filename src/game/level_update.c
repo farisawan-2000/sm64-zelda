@@ -208,10 +208,10 @@ u32 pressed_pause(void) {
     u32 val4 = get_dialog_id() >= 0;
     u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0;
 
-    if (!intangible && !val4 && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
-        && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
-        return TRUE;
-    }
+    // if (!intangible && !val4 && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
+    //     && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
+    //     return TRUE;
+    // }
 
     return FALSE;
 }
@@ -690,14 +690,44 @@ void initiate_painting_warp(void) {
         }
     }
 }
+#include "debug.h"
+
+s16 checkTransition(s16 arg) {
+    if (textState != TEXT_IDLE) {
+        return 1;
+    }
+    return 0;
+}
 
 /**
  * If there is not already a delayed warp, schedule one. The source node is
  * based on the warp operation and sometimes mario's used object.
  * Return the time left until the delayed warp is initiated.
  */
+
+#define FIVE_TO_8(x) (u8)((x) * (0x21 / 4))
+// #define FIVE_TO_8(x) x
+
+u32 rgb_5551_to_8888(u16 rgb5551) {
+    u8 r = FIVE_TO_8(rgb5551 >> 11);
+    u8 g = FIVE_TO_8((rgb5551 >> 6) & 0x1F);
+    u8 b = FIVE_TO_8((rgb5551 >> 1) & 0x1F);
+}
+u8 getR(u16 r) {
+    return FIVE_TO_8(r >> 11);
+}
+u8 getG(u16 g) {
+    return FIVE_TO_8((g >> 6) & 0x1F);
+}
+u8 getB(u16 b) {
+    return FIVE_TO_8((b >> 1) & 0x1F);
+}
+
+#include "behavior_data.h"
+#include "engine/geo_layout.h"
 s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
     s32 val04 = TRUE;
+    struct Object *tempObj;
 
     if (sDelayedWarpOp == WARP_OP_NONE) {
         m->invincTimer = -1;
@@ -730,13 +760,15 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 break;
 
             case WARP_OP_DEATH:
-                if (m->numLives == 0) {
-                    sDelayedWarpOp = WARP_OP_GAME_OVER;
-                }
-                sDelayedWarpTimer = 48;
-                sSourceWarpNodeId = WARP_NODE_DEATH;
-                play_transition(WARP_TRANSITION_FADE_INTO_BOWSER, 0x30, 0x00, 0x00, 0x00);
-                play_sound(SOUND_MENU_BOWSER_LAUGH, gDefaultSoundArgs);
+                tempObj = cur_obj_nearest_object_with_behavior(bhvWarps74);
+                vec3f_copy(m->pos, tempObj->header.gfx.pos);
+                // if (m->numLives == 0) {
+                //     sDelayedWarpOp = WARP_OP_GAME_OVER;
+                // }
+                // sDelayedWarpTimer = 48;
+                // sSourceWarpNodeId = WARP_NODE_DEATH;
+                // play_transition(WARP_TRANSITION_FADE_INTO_BOWSER, 0x30, 0x00, 0x00, 0x00);
+                // play_sound(SOUND_MENU_BOWSER_LAUGH, gDefaultSoundArgs);
                 break;
 
             case WARP_OP_WARP_FLOOR:
@@ -786,7 +818,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 sDelayedWarpTimer = 20;
                 sSourceWarpNodeId = (m->usedObj->oBehParams & 0x00FF0000) >> 16;
                 val04 = !music_changed_through_warp(sSourceWarpNodeId);
-                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x17, 0x00, 0x00, 0x00);
+                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x16, getR(lvl_background_color), getG(lvl_background_color), getB(lvl_background_color));
                 break;
 
             case WARP_OP_CREDITS_START:
@@ -1203,11 +1235,11 @@ s32 init_level(void) {
             }
         }
 
-        if (val4 != 0) {
+        // if (val4 != 0) {
             play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x5A, 0xFF, 0xFF, 0xFF);
-        } else {
-            play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0xFF, 0xFF, 0xFF);
-        }
+        // } else {
+            // play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0xFF, 0xFF, 0xFF);
+        // }
 
         if (gCurrDemoInput == NULL) {
             set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
@@ -1314,7 +1346,7 @@ s32 lvl_set_current_level(UNUSED s16 arg0, s32 levelNum) {
         return 0;
     }
 
-    return 1;
+    return 0;
 }
 
 /**

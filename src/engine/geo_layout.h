@@ -39,6 +39,9 @@ extern s16 gGeoLayoutReturnIndex;
 extern u8 *gGeoLayoutCommand;
 extern struct GraphNode gObjParentGraphNode;
 
+
+extern u16 lvl_background_color;
+
 extern struct AllocOnlyPool *D_8038BCA0;
 extern struct GraphNode *D_8038BCA4;
 extern s16 D_8038BD78;

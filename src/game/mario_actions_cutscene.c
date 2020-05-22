@@ -680,7 +680,10 @@ s32 act_fall_after_star_grab(struct MarioState *m) {
 // general death hander
 s32 common_death_handler(struct MarioState *m, s32 animation, s32 frameToDeathWarp) {
     s32 animFrame = set_mario_animation(m, animation);
+    
     if (animFrame == frameToDeathWarp) {
+        // tempObj = cur_obj_nearest_object_with_behavior(bhvWarps74);
+        // vec3f_copy(m->pos, tempObj->header.gfx.pos);
         level_trigger_warp(m, WARP_OP_DEATH);
     }
     m->marioBodyState->eyeState = MARIO_EYES_DEAD;
@@ -1770,7 +1773,7 @@ static void intro_cutscene_lower_pipe(struct MarioState *m) {
 static void intro_cutscene_set_mario_to_idle(struct MarioState *m) {
     if (gCamera->cutscene == 0) {
         gCameraMovementFlags &= ~CAM_MOVE_C_UP_MODE;
-        set_mario_action(m, ACT_IDLE, 0);
+        set_mario_action(m, ACT_SLEEPING, 0);
     }
 
     stop_and_set_height_to_floor(m);
@@ -2645,7 +2648,7 @@ s32 mario_execute_cutscene_action(struct MarioState *m) {
     /* clang-format off */
     switch (m->action) {
         case ACT_DISAPPEARED:                cancel = act_disappeared(m);                break;
-        case ACT_INTRO_CUTSCENE:             cancel = act_idle(m);             break;
+        case ACT_INTRO_CUTSCENE:             cancel = act_sleeping(m);             break;
         case ACT_STAR_DANCE_EXIT:            cancel = act_star_dance(m);                 break;
         case ACT_STAR_DANCE_NO_EXIT:         cancel = act_star_dance(m);                 break;
         case ACT_STAR_DANCE_WATER:           cancel = act_star_dance_water(m);           break;
