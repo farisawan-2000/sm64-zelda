@@ -11495,7 +11495,7 @@ Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context) 
     }
 
     perspective->fov = sFOVState.fov;
-    shake_camera_fov(perspective);
+    // shake_camera_fov(perspective);
     return NULL;
 }
 

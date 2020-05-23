@@ -5325,6 +5325,7 @@ const BehaviorScript bhvSpiny[] = {
 
 const BehaviorScript bhvMyCamera[] = {
     BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
     CALL_NATIVE(bhv_mycam_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_mycam_loop),

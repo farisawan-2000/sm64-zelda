@@ -55,12 +55,13 @@ struct newcam_hardpos
 //The camera position fields accept "32767" as an ignore flag.
 struct newcam_hardpos newcam_fixedcam[] =
 {
-{/*Level ID*/ 16,/*Area ID*/ 1,/*Permaswap*/ 0,/*Mode*/ NC_MODE_FIXED_NOMOVE, //Standard params.
+{/*Level ID*/ 16,/*Area ID*/ 1,/*Permaswap*/ 0,/*Mode*/ NC_MODE_NOTURN, //Standard params.
 /*X begin*/ -540,/*Y begin*/ 800,/*Z begin*/ -3500, //Where the activation box begins
 /*X end*/ 540,/*Y end*/ 2000,/*Z end*/ -1500, //Where the activation box ends.
 /*Cam X*/ 0,/*Cam Y*/ 1500,/*Cam Z*/ -1000, //The position the camera gets placed for NC_MODE_FIXED and NC_MODE_FIXED_NOMOVE
 /*Look X*/ 0,/*Look Y*/ 800,/*Look Z*/ -2500} //The position the camera looks at for NC_MODE_FIXED_NOMOVE
 };
+#define nodelta
 
 #ifdef nodelta
     u8 gDelta = 1;
@@ -651,9 +652,9 @@ static void newcam_lookat_target(void)
     {
         newcam_set_pan();
         //Set where the camera wants to be looking at. This is almost always the place it's based off, too.
-        newcam_lookat[0] = newcam_pos_target[0]-newcam_pan_x;
-        newcam_lookat[1] = newcam_pos_target[1];
-        newcam_lookat[2] = newcam_pos_target[2]-newcam_pan_z;
+        // newcam_lookat[0] = newcam_pos_target[0]-newcam_pan_x;
+        // newcam_lookat[1] = newcam_pos_target[1];
+        // newcam_lookat[2] = newcam_pos_target[2]-newcam_pan_z;
     }
 
     newcam_yaw = atan2s(newcam_pos[0]-newcam_pos_target[0],newcam_pos[2]-newcam_pos_target[2]);

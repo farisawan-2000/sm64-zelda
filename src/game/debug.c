@@ -456,6 +456,7 @@ extern struct MarioState *gMarioState;
 void try_print_debug_mario_object_info(void) {
     struct MarioState *m = gMarioState;
     newcam_sensitivityX = 0;
+    newcam_mode = NC_MODE_FIXED;
     newcam_sensitivityY = 0;
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
         if (gCurrAreaIndex == 1) {
@@ -463,8 +464,12 @@ void try_print_debug_mario_object_info(void) {
             newcam_yaw = -25000;
         }
         if (gCurrAreaIndex == 2) {
-            if ((m->action == ACT_LONG_JUMP))
-                newcam_tilt = 10000;
+            if ((m->action == ACT_LONG_JUMP)){
+                if (m->numCameras > 0){
+                    newcam_tilt = 10000;
+                    m->numCameras--;
+                }
+            }
             else {
                 newcam_tilt = 6600;
             }

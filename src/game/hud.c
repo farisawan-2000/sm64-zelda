@@ -266,7 +266,7 @@ void render_hud_power_meter(void) {
 void render_hud_mario_lives(void) {
     print_text(22, HUD_TOP_Y, ","); // 'Mario Head' glyph
     print_text(38, HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int(54, HUD_TOP_Y, "%d", gHudDisplay.lives);
+    print_text_fmt_int(54, HUD_TOP_Y, "%d", gMarioState->numCameras);
 }
 
 /**
@@ -449,7 +449,7 @@ void render_hud(void) {
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
-            // render_hud_mario_lives();
+            render_hud_mario_lives();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {

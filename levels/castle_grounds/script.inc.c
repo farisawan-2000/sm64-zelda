@@ -12,7 +12,7 @@
 
 	AREA(2, castle_grounds_area_2_level),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(0xF1, 52, -1860, -16, 0, 0, 0, 0x00000000, bhv1Up),
+		OBJECT(0xF1, 52, -1729, -2578, 0, 0, 0, 0x00000000, bhvMyCamera),
 		OBJECT(MODEL_NONE, 8, -1860, -1887, 0, 0, 0, 0x000A0000, bhvWarps74),
 		TERRAIN(castle_grounds_area_2_collision),
 		MACRO_OBJECTS(castle_grounds_area_2_Area_2_macro_objs),

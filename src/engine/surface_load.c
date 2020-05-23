@@ -723,9 +723,9 @@ void load_object_collision_model(void) {
 
     // If the object collision is supposed to be loaded more than the
     // drawing distance of 4000, extend the drawing range.
-    if (gCurrentObject->oCollisionDistance > 4000.0f) {
-        gCurrentObject->oDrawingDistance = gCurrentObject->oCollisionDistance;
-    }
+    // if (gCurrentObject->oCollisionDistance > 4000.0f) {
+    //     gCurrentObject->oDrawingDistance = gCurrentObject->oCollisionDistance;
+    // }
 
     // Update if no Time Stop, in range, and in the current room.
     if (!(gTimeStopState & TIME_STOP_ACTIVE) && marioDist < tangibleDist
@@ -739,9 +739,9 @@ void load_object_collision_model(void) {
         }
     }
 
-    if (marioDist < gCurrentObject->oDrawingDistance) {
+    // if (marioDist < gCurrentObject->oDrawingDistance) {
         gCurrentObject->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
-    } else {
-        gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
-    }
+    // } else {
+        // gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+    // }
 }

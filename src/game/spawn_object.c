@@ -274,7 +274,7 @@ struct Object *allocate_object(struct ObjectNode *objList) {
     if (gCurrLevelNum == LEVEL_TTC) {
         obj->oDrawingDistance = 2000.0f;
     } else {
-        obj->oDrawingDistance = 4000.0f;
+        obj->oDrawingDistance = 40000.0f;
     }
 
     mtxf_identity(obj->transform);

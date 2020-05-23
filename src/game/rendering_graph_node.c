@@ -737,14 +737,14 @@ static void geo_process_shadow(struct GraphNodeShadow *node) {
  * Since (0,0,0) is unaffected by rotation, columns 0, 1 and 2 are ignored.
  */
 static int obj_is_in_view(struct GraphNodeObject *node, Mat4 matrix) {
-    s16 cullingRadius;
+    f32 cullingRadius;
     s16 halfFov; // half of the fov in in-game angle units instead of degrees
     struct GraphNode *geo;
     f32 hScreenEdge;
 
-    if (node->node.flags & GRAPH_RENDER_INVISIBLE) {
-        return FALSE;
-    }
+    // if (node->node.flags & GRAPH_RENDER_INVISIBLE) {
+    //     return FALSE;
+    // }
 
     geo = node->sharedChild;
 
@@ -758,12 +758,12 @@ static int obj_is_in_view(struct GraphNodeObject *node, Mat4 matrix) {
     // the amount of units between the center of the screen and the horizontal edge
     // given the distance from the object to the camera.
 
-    if (geo != NULL && geo->type == GRAPH_NODE_TYPE_CULLING_RADIUS) {
+    // if (geo != NULL && geo->type == GRAPH_NODE_TYPE_CULLING_RADIUS) {
         cullingRadius =
-            (f32)((struct GraphNodeCullingRadius *) geo)->cullingRadius; //! Why is there a f32 cast?
-    } else {
-        cullingRadius = 300;
-    }
+            999999.0f; //! Why is there a f32 cast?
+    // } else {
+    //     cullingRadius = 300;
+    // }
 
     // Don't render if the object is close to or behind the camera
     if (matrix[3][2] > -100.0f + cullingRadius) {
