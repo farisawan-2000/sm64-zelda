@@ -174,7 +174,7 @@ else
 ifeq ($(VERSION),sh)
   OPT_FLAGS := -O2
 else
-  OPT_FLAGS := -O2
+  OPT_FLAGS := -g
 endif
 endif
 

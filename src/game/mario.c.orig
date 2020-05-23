@@ -31,7 +31,7 @@
 #include "engine/surface_collision.h"
 #include "level_table.h"
 #include "thread6.h"
-#include "../../enhancements/puppycam.h"
+#include "../../enhancements/bettercamera.h"
 
 u32 unused80339F10;
 s8 filler80339F1C[20];
@@ -1621,7 +1621,7 @@ void mario_update_hitbox_and_cap_model(struct MarioState *m) {
     struct MarioBodyState *bodyState = m->marioBodyState;
     s32 flags = update_and_return_cap_flags(m);
 
-    if (flags & MARIO_VANISH_CAP || newcam_xlu < 255) {
+    if (flags & MARIO_VANISH_CAP) {
         bodyState->modelState = MODEL_STATE_NOISE_ALPHA;
     }
 

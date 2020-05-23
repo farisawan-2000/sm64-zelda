@@ -456,7 +456,7 @@ extern struct MarioState *gMarioState;
 void try_print_debug_mario_object_info(void) {
     struct MarioState *m = gMarioState;
     newcam_sensitivityX = 0;
-    newcam_mode = NC_MODE_FIXED;
+    // newcam_mode = NC_MODE_FIXED;
     newcam_sensitivityY = 0;
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
         if (gCurrAreaIndex == 1) {

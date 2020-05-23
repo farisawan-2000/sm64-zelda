@@ -21,6 +21,7 @@
 #include "seq_ids.h"
 #include "course_table.h"
 #include "thread6.h"
+#include "../../enhancements/puppycam.h"
 
 #define INT_GROUND_POUND_OR_TWIRL (1 << 0) // 0x01
 #define INT_PUNCH                 (1 << 1) // 0x02
@@ -149,7 +150,7 @@ u32 get_mario_cap_flag(struct Object *capObject) {
     return 0;
 }
 /**
- * Returns true if the passed in object has a moving angle yaw 
+ * Returns true if the passed in object has a moving angle yaw
  * in the angular range given towards Mario.
  */
 u32 object_facing_mario(struct MarioState *m, struct Object *o, s16 angleRange) {

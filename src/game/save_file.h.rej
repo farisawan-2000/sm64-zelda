@@ -1,0 +1,58 @@
+--- src/game/save_file.h
++++ src/game/save_file.h
+@@ -6,7 +6,11 @@
+ 
+ #include "course_table.h"
+ 
+-#define EEPROM_SIZE 0x200
++#ifndef NC_CODE_NOSAVE
++    #define EEPROM_SIZE 0x800
++#else
++    #define EEPROM_SIZE 0x200
++#endif
+ #define NUM_SAVE_FILES 4
+ 
+ struct SaveBlockSignature
+@@ -50,16 +54,28 @@ struct MainMenuSaveData
+     // on the high score screen.
+     u32 coinScoreAges[NUM_SAVE_FILES];
+     u16 soundMode;
+-
++    #ifndef NC_CODE_NOSAVE
++    s16 camx;
++    s16 camy;
++    s16 analogue;
++    s16 invertx;
++    s16 inverty;
++    s16 camc;
++    s16 camp;
++    s16 firsttime;
++    s16 degrade;
++    #endif
+ #ifdef VERSION_EU
+     u16 language;
+ #define SUBTRAHEND 8
+ #else
+-#define SUBTRAHEND 6
++#define SUBTRAHEND 15
+ #endif
+ 
++    #ifdef NC_CODE_NOSAVE
+     // Pad to match the EEPROM size of 0x200 (10 bytes on JP/US, 8 bytes on EU)
+     u8 filler[EEPROM_SIZE / 2 - SUBTRAHEND - NUM_SAVE_FILES * (4 + sizeof(struct SaveFile))];
++    #endif
+ 
+     struct SaveBlockSignature signature;
+ };
+@@ -70,6 +86,11 @@ struct SaveBuffer
+     struct SaveFile files[NUM_SAVE_FILES][2];
+     // The main menu data has two copies. If one is bad, the other is used as a backup.
+     struct MainMenuSaveData menuData[2];
++    #ifndef NC_CODE_NOSAVE
++    //u8 filler[1520]; //!I still haven't done an algorithm for this yet lol
++    ///I think I figured it out lol
++    u8 filler[EEPROM_SIZE - ((NUM_SAVE_FILES*(sizeof(struct SaveFile))+sizeof(struct MainMenuSaveData))*2)];
++    #endif
+ };
+ 
+ struct WarpNode;

@@ -704,7 +704,7 @@ f32 calc_y_to_curr_floor(f32 *posOff, f32 posMul, f32 posBound, f32 *focOff, f32
     }
 }
 //Compiler gets mad if I put this any further above. thanks refresh 7
-#include "../../enhancements/bettercamera.inc.c"
+#include "../../enhancements/puppycam.inc.c"
 
 void focus_on_mario(Vec3f focus, Vec3f pos, f32 posYOff, f32 focYOff, f32 dist, s16 pitch, s16 yaw) {
     Vec3f marioPos;
@@ -3067,6 +3067,11 @@ void update_camera(struct Camera *c) {
     camera_course_processing(c);
     stub_camera_3(c);
     sCButtonsPressed = find_c_buttons_pressed(sCButtonsPressed, gPlayer1Controller->buttonPressed,gPlayer1Controller->buttonDown);
+    }
+    if (gMarioState->action == ACT_SHOT_FROM_CANNON && newcam_active)
+    {
+        gMarioState->area->camera->mode = CAM_MODE_NEWCAM;
+        gLakituState.mode = CAM_MODE_NEWCAM;
     }
 
     if (c->cutscene != 0) {

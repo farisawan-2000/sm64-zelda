@@ -18,7 +18,7 @@
 #include "print.h"
 #include "engine/math_util.h"
 #include "course_table.h"
-#include "../../enhancements/puppycam.h"
+#include "../../enhancements/bettercamera.h"
 
 extern Gfx *gDisplayListHead;
 extern s16 gCurrCourseNum;
@@ -2588,10 +2588,8 @@ s16 render_pause_courses_and_castle(void) {
 #ifdef VERSION_EU
     gInGameLanguage = eu_get_language();
 #endif
-    #ifndef NC_CODE_NOMENU
     if (newcam_option_open == 0)
     {
-    #endif
     switch (gDialogBoxState) {
         case DIALOG_STATE_OPENING:
             gDialogLineNum = 1;
@@ -2667,7 +2665,6 @@ s16 render_pause_courses_and_castle(void) {
     if (gDialogTextAlpha < 250) {
         gDialogTextAlpha += 25;
     }
-    #ifndef NC_CODE_NOMENU
     }
     else
     {
@@ -2675,8 +2672,6 @@ s16 render_pause_courses_and_castle(void) {
         newcam_display_options();
     }
     newcam_check_pause_buttons();
-    newcam_render_option_text();
-    #endif
 
     return 0;
 }

@@ -19,7 +19,7 @@
 #include "main_entry.h"
 #include "thread6.h"
 #include <prevent_bss_reordering.h>
-#include "../../enhancements/puppycam.h"
+#include "../../enhancements/bettercamera.h"
 
 // FIXME: I'm not sure all of these variables belong in this file, but I don't
 // know of a good way to split them
