@@ -53,3 +53,5 @@ extern u8 newcam_xlu;
 
 extern u16 newcam_mode;
 extern s16 newcam_yaw;
+extern s16 newcam_tilt;
+extern u16 newcam_modeflags;

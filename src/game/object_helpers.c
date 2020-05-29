@@ -1165,6 +1165,11 @@ void cur_obj_disable(void) {
     cur_obj_hide();
     cur_obj_become_intangible();
 }
+void cur_obj_enable(void) {
+    cur_obj_enable_rendering();
+    cur_obj_unhide();
+    cur_obj_become_tangible();
+}
 
 void cur_obj_become_intangible(void) {
     // When the timer is negative, the object is intangible and the timer

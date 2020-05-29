@@ -221,8 +221,8 @@
 #define TEXT_HEADSET _("HEADSET")
 
 // Quotes
-#define QUOTE_1L3 _("The path of least resistance is the path of the loser.")
-#define QUOTE_1L4 _("- H.G. Wells")
+#define QUOTE_1L3 _("A match made in heaven:")
+#define QUOTE_1L4 _("The mini camera, and the L button")
 
 #define QUOTE_2L3 _("I think I jump around more when I'm alone.")
 #define QUOTE_2L4 _("- Nicolas Cage")

@@ -583,8 +583,6 @@ static void newcam_collision(void)
 
     find_surface_on_ray(newcam_pos_target, camdir, &surf, &hitpos);
     newcam_coldist = sqrtf((newcam_pos_target[0] - hitpos[0]) * (newcam_pos_target[0] - hitpos[0]) + (newcam_pos_target[1] - hitpos[1]) * (newcam_pos_target[1] - hitpos[1]) + (newcam_pos_target[2] - hitpos[2]) * (newcam_pos_target[2] - hitpos[2]));
-    print_text_fmt_int(32,32,"%d",newcam_coldist);
-    print_text_fmt_int(32,48,"%d",newcam_xlu);
 
 
     if (surf)
@@ -614,7 +612,7 @@ static void newcam_set_pan(void)
     newcam_pan_x = newcam_pan_x*(min(newcam_distance/newcam_distance_target,1));
     newcam_pan_z = newcam_pan_z*(min(newcam_distance/newcam_distance_target,1));
 }
-
+extern f32 resolve_pos(void);
 static void newcam_position_cam(void)
 {
     f32 floorY = 0;
@@ -631,13 +629,14 @@ static void newcam_position_cam(void)
     //Fetch Mario's current position. Not hardcoded just for the sake of flexibility, though this specific bit is temp, because it won't always want to be focusing on Mario.
     newcam_pos_target[0] = gMarioState->pos[0];
     newcam_pos_target[1] = gMarioState->pos[1]+newcam_extheight;
+    // newcam_pos_target[1] = gMarioState->floorHeight;
     newcam_pos_target[2] = gMarioState->pos[2];
     //These will set the position of the camera to where Mario is supposed to be, minus adjustments for where the camera should be, on top of.
     if (newcam_modeflags & NC_FLAG_POSX)
         newcam_pos[0] = newcam_pos_target[0]+lengthdir_x(lengthdir_x(newcam_distance,newcam_tilt+shakeX),newcam_yaw+shakeY);
-    if (newcam_modeflags & NC_FLAG_POSY)
-        newcam_pos[2] = newcam_pos_target[2]+lengthdir_y(lengthdir_x(newcam_distance,newcam_tilt+shakeX),newcam_yaw+shakeY);
     if (newcam_modeflags & NC_FLAG_POSZ)
+        newcam_pos[2] = newcam_pos_target[2]+lengthdir_y(lengthdir_x(newcam_distance,newcam_tilt+shakeX),newcam_yaw+shakeY);
+    if (newcam_modeflags & NC_FLAG_POSY)
         newcam_pos[1] = newcam_pos_target[1]+lengthdir_y(newcam_distance,newcam_tilt+gLakituState.shakeMagnitude[0])+floorY;
     if ((newcam_modeflags & NC_FLAG_FOCUSX) && (newcam_modeflags & NC_FLAG_FOCUSY) && (newcam_modeflags & NC_FLAG_FOCUSZ))
         newcam_set_pan();
@@ -757,13 +756,13 @@ void newcam_apply_outside_values(struct Camera *c, u8 bit)
 //Main loop.
 void newcam_loop(struct Camera *c)
 {
-    newcam_rotate_button();
-    newcam_zoom_button();
+    // newcam_rotate_button();
+    // newcam_zoom_button();
     newcam_position_cam();
     newcam_find_fixed();
     if (gMarioObject)
-    newcam_apply_values(c);
-    newcam_fade_target_closeup();
+        newcam_apply_values(c);
+    // newcam_fade_target_closeup();
 
     //Just some visual information on the values of the camera. utilises ifdef because it's better at runtime.
     #ifdef NEWCAM_DEBUG

@@ -853,7 +853,6 @@ u32 interact_bbh_entrance(struct MarioState *m, UNUSED u32 interactType, struct 
 #include "debug.h"
 u32 interact_warp(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
     u32 action;
-    textState = TEXT_FADING_IN;
     if (o->oInteractionSubtype & INT_SUBTYPE_FADING_WARP) {
         action = m->action;
 
@@ -889,6 +888,7 @@ u32 interact_warp(struct MarioState *m, UNUSED u32 interactType, struct Object *
             //            m->marioObj->header.gfx.cameraToObject);
 #endif
 
+            textState = TEXT_FADING_IN;
             mario_stop_riding_object(m);
             return set_mario_action(m, ACT_DISAPPEARED, (WARP_OP_WARP_OBJECT << 16) + 2);
         }

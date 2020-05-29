@@ -1798,6 +1798,8 @@ s32 execute_mario_action(UNUSED struct Object *o) {
  *                  INITIALIZATION                *
  **************************************************/
 
+f32 newcam_set_height = 0.f;
+
 void init_mario(void) {
     Vec3s capPos;
     struct Object *capObject;
@@ -1880,6 +1882,8 @@ void init_mario(void) {
         capObject->oMoveAngleYaw = 0;
     }
     gMarioState->action = ACT_SLEEPING;
+    newcam_set_height = gMarioState->pos[1];
+    newcam_set_height -= 500.f;
 }
 
 void init_mario_from_save_file(void) {

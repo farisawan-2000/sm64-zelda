@@ -7,7 +7,6 @@
 #include "print.h"
 #include "hud.h"
 #include "engine/surface_collision.h"
-#include "enhancements/bettercamera.h"
 #include "mario.h"
 #include "game_init.h"
 #include "engine/math_util.h"
@@ -452,33 +451,132 @@ void stub_debug_5(void) {
 #include "level_table.h"
 extern struct Object *gMarioObject;
 extern struct MarioState *gMarioState;
+#include "camera.h"
+#include "enhancements/puppycam.h"
+extern f32 newcam_pos[3];
+extern f32 newcam_pos_target[3];
+char myBuf[100];
+char buf2[100];
+char buf3[100];
+char buf4[100];
+char buf5[100];
+
+f32 myPos = 2460.0f;
+f32 resolve_pos(void) {
+    if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
+        myPos -= 1.0f;
+    }
+    if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
+        myPos += 1.0f;
+    }
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        if (gCurrAreaIndex == 1) {
+            int x = 15;
+            int y = 249;
+            return 178.f;
+        }
+        if (gCurrAreaIndex == 2) {
+            return -1886.0f;
+        }
+    }
+}
+f32 padding(void) {
+    if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
+        myPos -= 1.0f;
+    }
+    if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
+        myPos += 1.0f;
+    }
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        if (gCurrAreaIndex == 1) {
+            int x = 15;
+            int y = 249;
+            return myPos;
+        }
+        if (gCurrAreaIndex == 2) {
+            return -1886.0f;
+        }
+    }
+}
+
+u16 camTimer = 150;
+u8 isPowerUpInUse = 0;
+
+u8 debug = FALSE;
 
 void try_print_debug_mario_object_info(void) {
     struct MarioState *m = gMarioState;
+    sprintf(myBuf, "%f", newcam_set_height);
+    if (gCamera){
+
+    sprintf(buf2, "%f", gCamera->pos[1]);
+    sprintf(buf3, "%f", gCamera->focus[1]);
+    }
+    // print_text(30, 30, myBuf);
+    // print_text(50, 50, buf2);
+    // print_text(70, 70, buf3);
+    resolve_pos();
     newcam_sensitivityX = 0;
     // newcam_mode = NC_MODE_FIXED;
-    newcam_sensitivityY = 0;
+    newcam_sensitivityY = 00;
+    // if (newcam_pos[1] == newcam_set_height)
+    newcam_modeflags &= ~(NC_FLAG_POSY | NC_FLAG_FOCUSY);
+    
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
         if (gCurrAreaIndex == 1) {
-            newcam_tilt = 5000;
+            if (!isPowerUpInUse && !debug)
+                newcam_set_height = -300.0f;
+            // newcam_tilt = 5500;
             newcam_yaw = -25000;
         }
         if (gCurrAreaIndex == 2) {
-            if ((m->action == ACT_LONG_JUMP)){
-                if (m->numCameras > 0){
-                    newcam_tilt = 10000;
-                    m->numCameras--;
-                }
-            }
-            else {
-                newcam_tilt = 6600;
-            }
+            if (!isPowerUpInUse && !debug)
+                newcam_set_height = -2358.f;
+            newcam_tilt = 5600;
             newcam_yaw = -25000;
         }
     }
-    print_text_fmt_int(55, 55, "%d", newcam_tilt);
+    if (gCurrLevelNum == LEVEL_BOB) {
+        newcam_set_height = -2358.f;
+        newcam_tilt = 5600;
+        newcam_yaw = -25000;
+    }
+    if ((gPlayer1Controller->buttonPressed & L_TRIG) && !(isPowerUpInUse) && (m->numCameras > 0)){
+        isPowerUpInUse = 1;
+        m->numCameras--;
+    }
+    if (isPowerUpInUse == 1) {
+        newcam_set_height = -2582.f;
+        newcam_tilt = 10000;
+        camTimer--;
+        if (camTimer == 0){
+            isPowerUpInUse = 0;
+            camTimer = 150;
+        }
+    }
     if (gMarioObject){
         vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
+        newcam_set_height -= 1.0f;
+    }
+    if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
+        newcam_set_height += 1.0f;
     }
 }
 

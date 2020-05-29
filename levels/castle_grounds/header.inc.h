@@ -10,8 +10,10 @@ extern const Vtx castle_grounds_Cube_mesh_vtx_0[151];
 extern const Gfx castle_grounds_Cube_mesh_tri_0[];
 extern const Vtx castle_grounds_Cube_mesh_vtx_1[10];
 extern const Gfx castle_grounds_Cube_mesh_tri_1[];
-extern const Vtx castle_grounds_Cube_001_mesh_vtx_0[237];
+extern const Vtx castle_grounds_Cube_001_mesh_vtx_0[220];
 extern const Gfx castle_grounds_Cube_001_mesh_tri_0[];
+extern const Vtx castle_grounds_Cube_001_mesh_vtx_1[8];
+extern const Gfx castle_grounds_Cube_001_mesh_tri_1[];
 
 extern const Gfx castle_grounds_Cube_mesh[];
 extern const Gfx castle_grounds_Cube_001_mesh[];

@@ -1,6 +1,6 @@
 	AREA(1, bob_area_1_level),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, 8, -1615, -1887, 0, 0, 0, 0x000A0000, bhvWarps74),
+		OBJECT(MODEL_NONE, 7, 694, 7673, 0, 0, 0, 0x000A0000, bhvWarps74),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_Area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_EVENT_PIRANHA_PLANT),

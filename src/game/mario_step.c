@@ -612,7 +612,7 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
     s32 i;
     s32 quarterStepResult;
     s32 stepResult = AIR_STEP_NONE;
-
+    f32 oldY = m->pos[1];
     m->wall = NULL;
 
     for (i = 0; i < 4; i++) {
@@ -636,6 +636,8 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
             break;
         }
     }
+    // if (intendedPos[1] - oldY < 0)
+    //     newcam_set_height += (intendedPos[1] - oldY);
 
     if (m->vel[1] >= 0.0f) {
         m->peakHeight = m->pos[1];

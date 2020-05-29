@@ -53,4 +53,7 @@ extern s32 execute_mario_action(struct Object *o);
 extern void init_mario(void);
 extern void init_mario_from_save_file(void);
 
+
+extern f32 newcam_set_height;
+
 #endif /* _MARIO_H */
