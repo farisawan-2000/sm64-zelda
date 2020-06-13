@@ -19,9 +19,16 @@ void bhv_mycam_loop(void) {
 	}
 }
 
-
-
+extern u8 nextQuote;
+#include "src/game/debug.h"
+void mower_loop(void) {
+	print_text_fmt_int(55, 55, "%d", (u32)o->oDistanceToMario);
+	if (o->oDistanceToMario < 500.0f && textState == TEXT_IDLE) {
+		nextQuote = (nextQuote != 3 ? 3 : 0);
+	}
+}
 
 void bush_loop(void) {
 	o->header.gfx.angle[1] += 0x300;
+	
 }

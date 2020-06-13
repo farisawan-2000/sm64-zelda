@@ -2,7 +2,7 @@
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(0xF1, 137, 246, -11515, 0, 0, 0, 0x00000000, bhvMyCamera),
 		OBJECT(0xF2, -1218, 346, -5089, 0, 0, 0, 0x00000000, bhvMower),
-		OBJECT(0xF3, -11878, 417, -2178, 0, 0, 0, 0x00000000, bhvBush),
+		OBJECT(0xF3, -11878, 136, -2178, 0, 0, 0, 0x00000000, bhvBush),
 		OBJECT(MODEL_NONE, 5, 484, 5347, 0, 0, 0, 0x000A0000, bhvWarps74),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_Area_1_macro_objs),

@@ -469,7 +469,7 @@ void handleAreas(struct MarioState *m) {
             nextQuote = 1;
         }
     }
-    if (gCurrLevelNum == LEVEL_BOB && currentQuote != 2) {
+    if (gCurrLevelNum == LEVEL_BOB && currentQuote < 2) {
         nextQuote = 2;
     }
 }
@@ -558,8 +558,8 @@ u8 nextQuote = 0;
 
 u16 TransitionTimes[] = {50, 3, 105, 6};
 
-u8 line1Buf[][64]= {{0}     , {0}     , {0}     };
-u8 line2Buf[][64]= {{0}     , {0}     , {0}     };
+u8 line1Buf[][64]= {{0}     , {0}     , {0},             {0}};
+u8 line2Buf[][64]= {{0}     , {0}     , {0}  ,           {QUOTE_3L2}   };
 u8 line3Buf[][94]= {{0}     ,  {QUOTE_1L3}, {QUOTE_2L3}, {QUOTE_3L3}};
 u8 line4Buf[][64]= {{0}     ,{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}};
 
