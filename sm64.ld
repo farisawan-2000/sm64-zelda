@@ -64,6 +64,19 @@ OUTPUT_ARCH (mips)
    } \
    END_SEG(name##_geo)
 
+#define STANDARD_OBJECTS_UNCOMPRESSED(name, segAddr, geoAddr) \
+   BEGIN_SEG(name##, segAddr) \
+   { \
+      BUILD_DIR/actors/name.o(.data); \
+      . = ALIGN(0x10); \
+   } \
+   END_SEG(name##) \
+   BEGIN_SEG(name##_geo, geoAddr) \
+   { \
+      BUILD_DIR/actors/name##_geo.o(.data); \
+   } \
+   END_SEG(name##_geo)
+
 SECTIONS
 {
    __romPos = 0;

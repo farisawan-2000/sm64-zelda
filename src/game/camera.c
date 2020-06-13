@@ -3008,6 +3008,8 @@ void update_camera(struct Camera *c) {
     }
 
     vec3f_set(c->pos, newcam_pos[0], newcam_set_height, newcam_pos[2]);
+    if (gCurrLevelNum == LEVEL_BOB)
+        vec3f_set(c->pos, newcam_pos[0] + 200.0f, newcam_set_height, newcam_pos[2] + 200.0f);
     vec3f_copy(c->focus, gLakituState.goalFocus);
 
     c->yaw = gLakituState.yaw;
@@ -3184,7 +3186,6 @@ void init_camera(struct Camera *c) {
         case LEVEL_BOWSER_3:
             start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
-
         //! Hardcoded position checks determine which cutscene to play when mario enters castle grounds.
         case LEVEL_CASTLE_GROUNDS:
             if (is_within_100_units_of_mario(-1328.f, 260.f, 4664.f) != 1) {

@@ -27,3 +27,6 @@
 #include "sparkle_animation/model.inc.c"
 
 #include "myCamera/model.inc.c"
+#include "mower/model.inc.c"
+#include "mower/collision.inc.c"
+#include "bush/model.inc.c"

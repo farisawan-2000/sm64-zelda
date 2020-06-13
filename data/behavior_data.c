@@ -32,6 +32,7 @@
 #include "actors/group15.h"
 #include "actors/group16.h"
 #include "actors/group17.h"
+// #include "actors/mower/collision_header.h"
 #include "levels/bbh/header.h"
 #include "levels/castle_inside/header.h"
 #include "levels/hmc/header.h"
@@ -5329,6 +5330,24 @@ const BehaviorScript bhvMyCamera[] = {
     CALL_NATIVE(bhv_mycam_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_mycam_loop),
+    END_LOOP(),
+};
+
+// #include "actors/mower/collision.inc.c"
+extern const Collision mower_collision[];
+const BehaviorScript bhvMower[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(mower_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+extern void bush_loop(void);
+const BehaviorScript bhvBush[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bush_loop),
     END_LOOP(),
 };
 

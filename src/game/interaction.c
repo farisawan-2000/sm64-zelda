@@ -888,7 +888,7 @@ u32 interact_warp(struct MarioState *m, UNUSED u32 interactType, struct Object *
             //            m->marioObj->header.gfx.cameraToObject);
 #endif
 
-            textState = TEXT_FADING_IN;
+            
             mario_stop_riding_object(m);
             return set_mario_action(m, ACT_DISAPPEARED, (WARP_OP_WARP_OBJECT << 16) + 2);
         }
@@ -1810,6 +1810,8 @@ void check_death_barrier(struct MarioState *m) {
     if (m->pos[1] < m->floorHeight + 2048.0f) {
         tempObj = cur_obj_nearest_object_with_behavior(bhvWarps74);
         vec3f_copy(m->pos, tempObj->header.gfx.pos);
+        // if (m->vel[1] < 10.0f)
+            m->numDeaths++;
     }
 }
 

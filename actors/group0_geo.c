@@ -18,3 +18,5 @@
 #include "mario/geo.inc.c"
 
 #include "myCamera/geo.inc.c"
+#include "mower/geo.inc.c"
+#include "bush/geo.inc.c"

@@ -301,7 +301,7 @@ void update_debug_dpadmask(void) {
         } else {
             sDebugInfoDPadMask = 0;
         }
-        sDebugInfoDPadUpdID += 1;
+        sDebugInfoDPadUpdID += 1; // >= <= == != |= ^= 
         if (sDebugInfoDPadUpdID >= 8) {
             sDebugInfoDPadUpdID = 6; // rapidly set to 6 from 8 as long as dPadMask is being set.
         }
@@ -401,47 +401,7 @@ static void try_change_debug_page(void) {
 static
 #endif
 void try_modify_debug_controls(void) {
-    s32 sp4;
-
-    if (gPlayer1Controller->buttonPressed & Z_TRIG) {
-        sNoExtraDebug ^= 1;
-    }
-    if (!(gPlayer1Controller->buttonDown & (L_TRIG | R_TRIG)) && sNoExtraDebug == FALSE) {
-        sp4 = 1;
-        if (gPlayer1Controller->buttonDown & B_BUTTON) {
-            sp4 = 100;
-        }
-
-        if (sDebugInfoDPadMask & U_JPAD) {
-            sDebugSysCursor -= 1;
-            if (sDebugSysCursor < 0) {
-                sDebugSysCursor = 0;
-            }
-        }
-
-        if (sDebugInfoDPadMask & D_JPAD) {
-            sDebugSysCursor += 1;
-            if (sDebugSysCursor >= 8) {
-                sDebugSysCursor = 7;
-            }
-        }
-
-        if (sDebugInfoDPadMask & L_JPAD) {
-            // we allow the player while in this mode to modify the debug controls. This is
-            // so the playtester can adjust enemy behavior and parameters on the fly, since
-            // various behaviors try to update their behaviors from gDebugInfo[4] and [5].
-            if (gPlayer1Controller->buttonDown & A_BUTTON) {
-                gDebugInfo[sDebugPage][sDebugSysCursor] =
-                    gDebugInfoOverwrite[sDebugPage][sDebugSysCursor];
-            } else {
-                gDebugInfo[sDebugPage][sDebugSysCursor] = gDebugInfo[sDebugPage][sDebugSysCursor] - sp4;
-            }
-        }
-
-        if (sDebugInfoDPadMask & R_JPAD) {
-            gDebugInfo[sDebugPage][sDebugSysCursor] = gDebugInfo[sDebugPage][sDebugSysCursor] + sp4;
-        }
-    }
+    
 }
 
 // possibly a removed debug control (TODO: check DD)
@@ -461,7 +421,7 @@ char buf3[100];
 char buf4[100];
 char buf5[100];
 
-f32 myPos = 2460.0f;
+f32 myPos = 384.f;
 f32 resolve_pos(void) {
     if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
         myPos -= 1.0f;
@@ -479,23 +439,8 @@ f32 resolve_pos(void) {
             return -1886.0f;
         }
     }
-}
-f32 padding(void) {
-    if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
-        myPos -= 1.0f;
-    }
-    if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
-        myPos += 1.0f;
-    }
-    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
-        if (gCurrAreaIndex == 1) {
-            int x = 15;
-            int y = 249;
-            return myPos;
-        }
-        if (gCurrAreaIndex == 2) {
-            return -1886.0f;
-        }
+    if (gCurrLevelNum == LEVEL_BOB) {
+        return -2000.0f;
     }
 }
 
@@ -503,15 +448,43 @@ u16 camTimer = 150;
 u8 isPowerUpInUse = 0;
 
 u8 debug = FALSE;
+extern u16 newcam_distance_target;
+extern u8 currentQuote;
+extern u8 nextQuote;
+void checkNewText(void) {
+    if (nextQuote == 0x0 && currentQuote != 0) {
+        nextQuote = currentQuote;
+        textState = TEXT_FADING_IN;
+    }
+    else if (nextQuote != currentQuote) 
+    {
+        currentQuote = nextQuote;
+        textState = TEXT_FADING_IN;
+    }
+}
+
+void handleAreas(struct MarioState *m) {
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS && gCurrAreaIndex == 2) {
+        if (m->numDeaths == 1 && nextQuote == 0)  {
+            nextQuote = 1;
+        }
+    }
+    if (gCurrLevelNum == LEVEL_BOB && currentQuote != 2) {
+        nextQuote = 2;
+    }
+}
+
 
 void try_print_debug_mario_object_info(void) {
     struct MarioState *m = gMarioState;
     sprintf(myBuf, "%f", newcam_set_height);
     if (gCamera){
 
-    sprintf(buf2, "%f", gCamera->pos[1]);
-    sprintf(buf3, "%f", gCamera->focus[1]);
+    sprintf(buf3, "%d", currentQuote);
+    sprintf(buf2, "%d", nextQuote);
     }
+    handleAreas(m);
+    checkNewText();
     // print_text(30, 30, myBuf);
     // print_text(50, 50, buf2);
     // print_text(70, 70, buf3);
@@ -537,7 +510,8 @@ void try_print_debug_mario_object_info(void) {
         }
     }
     if (gCurrLevelNum == LEVEL_BOB) {
-        newcam_set_height = -2358.f;
+        newcam_set_height = -2100.f;
+        newcam_distance_target = -1596.f;
         newcam_tilt = 5600;
         newcam_yaw = -25000;
     }
@@ -559,19 +533,6 @@ void try_print_debug_mario_object_info(void) {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
         newcam_set_height -= 1.0f;
     }
@@ -579,6 +540,7 @@ void try_print_debug_mario_object_info(void) {
         newcam_set_height += 1.0f;
     }
 }
+
 
 #include "print.h"
 #include "segment2.h"
@@ -592,13 +554,14 @@ void printsss(s16 x, s16 y, u8 str[]) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 u8 currentQuote = 0;
+u8 nextQuote = 0;
 
 u16 TransitionTimes[] = {50, 3, 105, 6};
 
 u8 line1Buf[][64]= {{0}     , {0}     , {0}     };
 u8 line2Buf[][64]= {{0}     , {0}     , {0}     };
-u8 line3Buf[][94]= {{QUOTE_1L3}, {QUOTE_2L3}, {QUOTE_3L3}};
-u8 line4Buf[][64]= {{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}};
+u8 line3Buf[][94]= {{0}     ,  {QUOTE_1L3}, {QUOTE_2L3}, {QUOTE_3L3}};
+u8 line4Buf[][64]= {{0}     ,{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}};
 
 void print_quote(void) {
     if (line1Buf[currentQuote][0] != 0) printsss(15, 55, line1Buf[currentQuote]);
@@ -619,7 +582,7 @@ void debug_resolveStrings(void){
     }
     if (textAlphaTimer > 255){
         textAlphaTimer = 255;
-        currentQuote++;
+        // currentQuote++;
         textState = TEXT_IDLE;
     }
     if (textAlphaTimer < 0){

@@ -15,6 +15,10 @@
 #define LEVEL_BOUNDARY_EXTENDED_MAX 0x7fff
 
 
+#define BOUNDS_EXTENSION 4.0f
+#define LEVEL_BOUNDARY_EXTENDED_MAX 0x7fff
+
+
 /**************************************************
  *                      WALLS                      *
  **************************************************/

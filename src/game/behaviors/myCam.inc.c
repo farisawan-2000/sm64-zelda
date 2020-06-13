@@ -18,3 +18,10 @@ void bhv_mycam_loop(void) {
 		myCamTimer = 0;
 	}
 }
+
+
+
+
+void bush_loop(void) {
+	o->header.gfx.angle[1] += 0x300;
+}

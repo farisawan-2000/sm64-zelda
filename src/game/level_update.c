@@ -1242,7 +1242,7 @@ s32 init_level(void) {
         // }
 
         if (gCurrDemoInput == NULL) {
-            set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
+            set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 20);
         }
     }
 #ifdef VERSION_SH

@@ -612,6 +612,7 @@ static void newcam_set_pan(void)
     newcam_pan_x = newcam_pan_x*(min(newcam_distance/newcam_distance_target,1));
     newcam_pan_z = newcam_pan_z*(min(newcam_distance/newcam_distance_target,1));
 }
+char bsd[100];
 extern f32 resolve_pos(void);
 static void newcam_position_cam(void)
 {
@@ -631,6 +632,10 @@ static void newcam_position_cam(void)
     newcam_pos_target[1] = gMarioState->pos[1]+newcam_extheight;
     // newcam_pos_target[1] = gMarioState->floorHeight;
     newcam_pos_target[2] = gMarioState->pos[2];
+    if (gCurrLevelNum == LEVEL_BOB) {
+        newcam_pos_target[0] = gMarioState->pos[0] + 400.0f;
+        newcam_pos_target[2] = gMarioState->pos[2] + 400.0f;
+    }
     //These will set the position of the camera to where Mario is supposed to be, minus adjustments for where the camera should be, on top of.
     if (newcam_modeflags & NC_FLAG_POSX)
         newcam_pos[0] = newcam_pos_target[0]+lengthdir_x(lengthdir_x(newcam_distance,newcam_tilt+shakeX),newcam_yaw+shakeY);
@@ -650,6 +655,8 @@ static void newcam_position_cam(void)
 
     if (newcam_modeflags & NC_FLAG_COLLISION)
     newcam_collision();
+    // sprintf(bsd, "%f", floorY);
+    // print_text(70, 70, bsd);
 
 }
 
