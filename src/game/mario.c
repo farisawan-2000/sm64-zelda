@@ -1257,39 +1257,41 @@ void debug_print_speed_action_normal(struct MarioState *m) {
  * Update the button inputs for Mario.
  */
 void update_mario_button_inputs(struct MarioState *m) {
-    if (m->controller->buttonPressed & A_BUTTON) {
-        m->input |= INPUT_A_PRESSED;
-    }
-
-    if (m->controller->buttonDown & A_BUTTON) {
-        m->input |= INPUT_A_DOWN;
-    }
-
-    // Don't update for these buttons if squished.
-    if (m->squishTimer == 0) {
-        if (m->controller->buttonPressed & B_BUTTON) {
-            m->input |= INPUT_B_PRESSED;
+    if (m->ridingMower == 0) {
+        if (m->controller->buttonPressed & A_BUTTON) {
+            m->input |= INPUT_A_PRESSED;
         }
 
-        if (m->controller->buttonDown & Z_TRIG) {
-            m->input |= INPUT_Z_DOWN;
+        if (m->controller->buttonDown & A_BUTTON) {
+            m->input |= INPUT_A_DOWN;
         }
 
-        if (m->controller->buttonPressed & Z_TRIG) {
-            m->input |= INPUT_Z_PRESSED;
+        // Don't update for these buttons if squished.
+        if (m->squishTimer == 0) {
+            if (m->controller->buttonPressed & B_BUTTON) {
+                m->input |= INPUT_B_PRESSED;
+            }
+
+            if (m->controller->buttonDown & Z_TRIG) {
+                m->input |= INPUT_Z_DOWN;
+            }
+
+            if (m->controller->buttonPressed & Z_TRIG) {
+                m->input |= INPUT_Z_PRESSED;
+            }
         }
-    }
 
-    if (m->input & INPUT_A_PRESSED) {
-        m->framesSinceA = 0;
-    } else if (m->framesSinceA < 0xFF) {
-        m->framesSinceA += 1;
-    }
+        if (m->input & INPUT_A_PRESSED) {
+            m->framesSinceA = 0;
+        } else if (m->framesSinceA < 0xFF) {
+            m->framesSinceA += 1;
+        }
 
-    if (m->input & INPUT_B_PRESSED) {
-        m->framesSinceB = 0;
-    } else if (m->framesSinceB < 0xff) {
-        m->framesSinceB += 1;
+        if (m->input & INPUT_B_PRESSED) {
+            m->framesSinceB = 0;
+        } else if (m->framesSinceB < 0xff) {
+            m->framesSinceB += 1;
+        }
     }
 }
 
@@ -1313,7 +1315,7 @@ void update_mario_joystick_inputs(struct MarioState *m) {
             m->intendedYaw = atan2s(-controller->stickY, controller->stickX)-newcam_yaw+0x4000;
         m->input |= INPUT_NONZERO_ANALOG;
     } else {
-        // m->intendedYaw = m->faceAngle[1];
+        m->intendedYaw = m->faceAngle[1];
     }
 }
 

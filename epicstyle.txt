@@ -1,0 +1,28 @@
+include/model_ids.h:#define MODEL_CASTLE_CASTLE_DOOR_UNUSED        0x1C        // castle_door_geo - unused, original id
+include/model_ids.h:#define MODEL_CASTLE_WOODEN_DOOR_UNUSED        0x1D        // wooden_door_geo - unused, original id
+include/model_ids.h:#define MODEL_BBH_HAUNTED_DOOR                 0x1D        // haunted_door_geo
+include/model_ids.h:#define MODEL_HMC_WOODEN_DOOR                  0x1D        // wooden_door_geo
+include/model_ids.h:#define MODEL_UNKNOWN_DOOR_1E                  0x1E        // referenced in special presets, undefined
+include/model_ids.h:#define MODEL_HMC_METAL_DOOR                   0x1F        // metal_door_geo
+include/model_ids.h:#define MODEL_HMC_HAZY_MAZE_DOOR               0x20        // hazy_maze_door_geo
+include/model_ids.h:#define MODEL_UNKNOWN_DOOR_21                  0x21        // referenced in special presets, undefined
+include/model_ids.h:#define MODEL_CASTLE_DOOR_0_STARS              0x22        // castle_door_0_star_geo
+include/model_ids.h:#define MODEL_CASTLE_DOOR_1_STAR               0x23        // castle_door_1_star_geo
+include/model_ids.h:#define MODEL_CASTLE_DOOR_3_STARS              0x24        // castle_door_3_stars_geo
+include/model_ids.h:#define MODEL_CASTLE_KEY_DOOR                  0x25        // key_door_geo
+include/model_ids.h:#define MODEL_CASTLE_CASTLE_DOOR               0x26        // castle_door_geo - used duplicate
+include/model_ids.h:#define MODEL_CASTLE_GROUNDS_CASTLE_DOOR       0x26        // castle_door_geo - used duplicate
+include/model_ids.h:#define MODEL_CASTLE_WOODEN_DOOR               0x27        // wooden_door_geo
+include/model_ids.h:#define MODEL_COURTYARD_WOODEN_DOOR            0x27        // wooden_door_geo
+include/model_ids.h:#define MODEL_CCM_CABIN_DOOR                   0x27        // cabin_door_geo
+include/model_ids.h:#define MODEL_UNKNOWN_DOOR_28                  0x28        // referenced in special presets, undefined
+include/model_ids.h:#define MODEL_CASTLE_METAL_DOOR                0x29        // metal_door_geo
+include/model_ids.h:#define MODEL_CASTLE_GROUNDS_METAL_DOOR        0x29        // metal_door_geo
+include/model_ids.h:#define MODEL_UNKNOWN_DOOR_2A                  0x2A        // referenced in special presets, undefined
+include/model_ids.h:#define MODEL_UNKNOWN_DOOR_2B                  0x2B        // referenced in special presets, undefined
+include/model_ids.h:#define MODEL_DDD_BOWSER_SUB_DOOR                 0x36        // ddd_geo_000478
+include/model_ids.h:#define MODEL_WF_TOWER_DOOR                       0x39        // wf_geo_000BE0
+include/model_ids.h:#define MODEL_CASTLE_STAR_DOOR_30_STARS   0xD0        // castle_geo_000F00
+include/model_ids.h:#define MODEL_CASTLE_STAR_DOOR_50_STARS   0xD1        // castle_geo_000F00
+include/model_ids.h:#define MODEL_CASTLE_STAR_DOOR_8_STARS    0xD5        // castle_geo_000F00
+include/model_ids.h:#define MODEL_CASTLE_STAR_DOOR_70_STARS   0xD6        // castle_geo_000F00

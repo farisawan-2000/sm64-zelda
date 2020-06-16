@@ -515,7 +515,7 @@ void try_print_debug_mario_object_info(void) {
         newcam_tilt = 5600;
         newcam_yaw = -25000;
     }
-    if ((gPlayer1Controller->buttonPressed & L_TRIG) && !(isPowerUpInUse) && (m->numCameras > 0)){
+    if ((gPlayer1Controller->buttonPressed & L_TRIG) && !(isPowerUpInUse) && (m->numCameras > 0) && (m->ridingMower == 0)){
         isPowerUpInUse = 1;
         m->numCameras--;
     }
@@ -529,7 +529,10 @@ void try_print_debug_mario_object_info(void) {
         }
     }
     if (gMarioObject){
-        vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
+        if (m->ridingMower == 0)
+            vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
+        else
+            vec3f_set(gMarioObject->header.gfx.scale,1.0f, 1.0f, 1.0f);
     }
 
 

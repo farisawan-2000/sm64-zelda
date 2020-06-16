@@ -346,6 +346,7 @@ struct MarioState
     /*0xC4*/ f32 unkC4;
     u16 numCameras;
     u32 numDeaths;
+    u8 ridingMower;
 };
 
 #endif

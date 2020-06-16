@@ -350,4 +350,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "bush/geo_header.h"
 
+#include "rake/geo_header.h"
+
 #endif

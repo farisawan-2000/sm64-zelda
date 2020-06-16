@@ -228,7 +228,7 @@
 #define QUOTE_2L4 _("Find yourself, or get lost, it's your choice...")
 
 #define QUOTE_3L2 _("In this barren paradise,")
-#define QUOTE_3L3 _("sometimes you have to do the cleaning.")
+#define QUOTE_3L3 _("   sometimes you have to do the cleaning.")
 #define QUOTE_3L4 _("Press L to get in or out.")
 
 #define QUOTE_4L3 _("To find out what man cherishes most,")

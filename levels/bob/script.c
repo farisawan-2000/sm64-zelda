@@ -77,6 +77,7 @@ const LevelScript level_bob_entry[] = {
     LOAD_MODEL_FROM_GEO(0xF1, myCamera_geo),
     LOAD_MODEL_FROM_GEO(0xF2, mower_geo),
     LOAD_MODEL_FROM_GEO(0xF3, bush_geo),
+    LOAD_MODEL_FROM_GEO(0xF4, rake_geo),
 
     //AREA(/*index*/ 1, bob_geo_000488),
 //        JUMP_LINK(script_func_local_1),

@@ -18,12 +18,8 @@ static f32 sTTCPendulumInitialAccels[] = {
  * Init function for bhvTTCPendulum.
  */
 void bhv_ttc_pendulum_init(void) {
-    if (gTTCSpeedSetting != TTC_SPEED_STOPPED) {
-        o->oTTCPendulumAngleAccel = sTTCPendulumInitialAccels[gTTCSpeedSetting];
+        o->oTTCPendulumAngleAccel = sTTCPendulumInitialAccels[0];
         o->oTTCPendulumAngle = 6500.0f;
-    } else {
-        o->oTTCPendulumAngle = 6371.5557f;
-    }
 }
 
 /**
@@ -36,14 +32,14 @@ void bhv_ttc_pendulum_update(void) {
         // Play sound
         if (o->oTTCPendulumSoundTimer != 0) {
             if (--o->oTTCPendulumSoundTimer == 0) {
-                cur_obj_play_sound_2(SOUND_GENERAL_PENDULUM_SWING);
+                // cur_obj_play_sound_2(SOUND_GENERAL_PENDULUM_SWING);
             }
         }
 
         // Stay still for a while
-        if (o->oTTCPendulumDelay != 0) {
-            o->oTTCPendulumDelay -= 1;
-        } else {
+        // if (o->oTTCPendulumDelay != 0) {
+            // o->oTTCPendulumDelay -= 1;
+        // } else {
             // Accelerate in the direction that moves angle to zero
             if (o->oTTCPendulumAngle * o->oTTCPendulumAccelDir > 0.0f) {
                 o->oTTCPendulumAccelDir = -o->oTTCPendulumAccelDir;
@@ -77,7 +73,7 @@ void bhv_ttc_pendulum_update(void) {
             }
 
             o->oTTCPendulumAngle += o->oTTCPendulumAngleVel;
-        }
+        // }
     } else {
     }
 

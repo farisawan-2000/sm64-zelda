@@ -5337,8 +5337,8 @@ const BehaviorScript bhvMyCamera[] = {
 extern const Collision mower_collision[];
 extern void mower_loop(void);
 const BehaviorScript bhvMower[] = {
-    BEGIN(OBJ_LIST_DEFAULT),
-    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(mower_collision),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
@@ -5348,9 +5348,18 @@ const BehaviorScript bhvMower[] = {
 extern void bush_loop(void);
 const BehaviorScript bhvBush[] = {
     BEGIN(OBJ_LIST_DEFAULT),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    // OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     BEGIN_LOOP(),
         CALL_NATIVE(bush_loop),
+    END_LOOP(),
+};
+extern void rake_loop(void);
+const BehaviorScript bhvRake[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    DROP_TO_FLOOR(),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(rake_loop),
     END_LOOP(),
 };
 
