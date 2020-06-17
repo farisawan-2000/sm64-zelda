@@ -5339,9 +5339,10 @@ extern void mower_loop(void);
 const BehaviorScript bhvMower[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(mower_collision),
+    // LOAD_COLLISION_DATA(mower_collision),
+    SET_HOME(),
     BEGIN_LOOP(),
-        CALL_NATIVE(load_object_collision_model),
+        // CALL_NATIVE(load_object_collision_model),
         CALL_NATIVE(mower_loop),
     END_LOOP(),
 };

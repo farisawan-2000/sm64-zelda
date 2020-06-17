@@ -28,6 +28,5 @@
 
 #include "myCamera/model.inc.c"
 #include "mower/model.inc.c"
-#include "mower/collision.inc.c"
 #include "bush/model.inc.c"
 #include "rake/model.inc.c"

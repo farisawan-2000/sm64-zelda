@@ -2495,6 +2495,12 @@ void obj_explode_and_spawn_coins(f32 sp18, s32 sp1C) {
         obj_spawn_loot_blue_coins(o, o->oNumLootCoins, 20.0f, 150);
     }
 }
+void obj_yeet(f32 sp18) {
+    spawn_mist_particles_variable(0, 0, sp18);
+    spawn_triangle_break_particles(30, 138, 3.0f, 4);
+    cur_obj_disable();
+
+}
 
 void obj_set_collision_data(struct Object *obj, const void *segAddr) {
     obj->collisionData = segmented_to_virtual(segAddr);

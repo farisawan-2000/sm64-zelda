@@ -33,22 +33,33 @@ extern u8 nextQuote, currentQuote;
 #include "src/game/debug.h"
 void mower_loop(void) {
 	struct MarioState *m = gMarioState;
-	// print_text_fmt_int(55, 55, "%d", m->ridingMower);
-	if (o->oDistanceToMario < 500.0f && currentQuote != 3 && m->ridingMower != 1) {
-		nextQuote = (nextQuote != 3 ? 3 : 0);
+	if (o) {
+		// print_text_fmt_int(55, 55, "%d", m->ridingMower);
+		if (o->oDistanceToMario < 500.0f && currentQuote != 3 && m->ridingMower != 1) {
+			nextQuote = (nextQuote != 3 ? 3 : 0);
+		}
+		if (o->oDistanceToMario < 550.f && gPlayer1Controller->buttonPressed & L_TRIG) {
+			m->ridingMower ^= 1;
+		}
+		if (m->ridingMower) {
+			// f32 temp = o->header.gfx.pos[1];
+			mower_ride(o, m);
+			
+			// o->header.gfx.pos[1] = temp;
+			// o->header.gfx.angle[1] = m->faceAngle[1];
+			o->oFaceAngleYaw = m->faceAngle[1] + 0x8000;
+			m->forwardVel = 30.f;
+		}
+		if ((m->action == ACT_HARD_BACKWARD_GROUND_KB) && (m->ridingMower == 1)) {
+			m->ridingMower = 0;
+			obj_yeet(46.0f);
+			o->oPosX = o->oHomeX;
+			o->oPosY = o->oHomeY;
+			o->oPosZ = o->oHomeZ;
+			cur_obj_enable();
+		}
 	}
-	if (o->oDistanceToMario < 550.f && gPlayer1Controller->buttonPressed & L_TRIG) {
-		m->ridingMower ^= 1;
-	}
-	if (m->ridingMower) {
-		// f32 temp = o->header.gfx.pos[1];
-		mower_ride(o, m);
-		
-		// o->header.gfx.pos[1] = temp;
-		// o->header.gfx.angle[1] = m->faceAngle[1];
-		o->oFaceAngleYaw = m->faceAngle[1] + 0x8000;
-		m->forwardVel = 30.f;
-	}
+
 }
 int numBushes = 52;
 void bush_loop(void) {
@@ -59,7 +70,7 @@ void bush_loop(void) {
 		obj_explode_and_spawn_coins(46.0f, 0);
 		numBushes--;
 		if (numBushes == 0) {
-			spawn_object(o, MODEL_MARIOS_CAP, bhvMessagePanel);
+			spawn_object(o, 0xF4, bhvMessagePanel);
 		}
 	}
 }
@@ -77,8 +88,14 @@ void rake_loop(void) {
 
 	if (o->oFaceAnglePitch < -0x4000) {
 		o->oFaceAnglePitch = -0x4000;
-		drop_and_set_mario_action(m, ACT_HARD_BACKWARD_GROUND_KB, 0);
-		m->forwardVel = -30.0f;
+			drop_and_set_mario_action(m, ACT_HARD_BACKWARD_GROUND_KB, 0);
+			if (m->ridingMower == 1){
+				m->forwardVel = -5000.0f;
+				m->vel[1] = 300.f;
+			}
+			else
+				m->forwardVel = -30.0f;
+
 		o->oBehParams2ndByte = RAKE_FALLING;
 	}
 	if (o->oFaceAnglePitch > 0){

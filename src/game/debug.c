@@ -515,6 +515,12 @@ void try_print_debug_mario_object_info(void) {
         newcam_tilt = 5600;
         newcam_yaw = -25000;
     }
+    if (gCurrLevelNum == LEVEL_WF) {
+        newcam_set_height = -2100.f;
+        newcam_distance_target = -1596.f;
+        newcam_tilt = 5600;
+        newcam_yaw = -25000;
+    }
     if ((gPlayer1Controller->buttonPressed & L_TRIG) && !(isPowerUpInUse) && (m->numCameras > 0) && (m->ridingMower == 0)){
         isPowerUpInUse = 1;
         m->numCameras--;

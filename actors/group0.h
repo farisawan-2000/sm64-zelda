@@ -346,7 +346,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "mower/geo_header.h"
 
-#include "mower/collision_header.h"
 
 #include "bush/geo_header.h"
 
