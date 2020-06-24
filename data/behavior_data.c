@@ -5326,10 +5326,28 @@ const BehaviorScript bhvSpiny[] = {
 
 const BehaviorScript bhvMyCamera[] = {
     BEGIN(OBJ_LIST_DEFAULT),
-    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     CALL_NATIVE(bhv_mycam_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_mycam_loop),
+    END_LOOP(),
+};
+extern void bhvKeycardLoop(void);
+extern void bhv_keyinit(void);
+const BehaviorScript bhvKeycard[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_keyinit),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhvKeycardLoop),
+    END_LOOP(),
+};
+
+extern void lock_mario(void);
+const BehaviorScript bhv2D[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN_LOOP(),
+        CALL_NATIVE(lock_mario),
     END_LOOP(),
 };
 

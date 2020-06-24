@@ -1,3 +1,4 @@
+#include "actors/keycard/texscroll.inc.h"
 #include "actors/rake/texscroll.inc.h"
 #include "actors/bush/texscroll.inc.h"
 #include "actors/mower/texscroll.inc.h"

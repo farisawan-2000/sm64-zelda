@@ -21,3 +21,4 @@
 #include "mower/geo.inc.c"
 #include "bush/geo.inc.c"
 #include "rake/geo.inc.c"
+#include "keycard/geo.inc.c"

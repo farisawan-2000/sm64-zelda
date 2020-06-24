@@ -30,3 +30,4 @@
 #include "mower/model.inc.c"
 #include "bush/model.inc.c"
 #include "rake/model.inc.c"
+#include "keycard/model.inc.c"

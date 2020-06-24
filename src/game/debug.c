@@ -421,13 +421,36 @@ char buf3[100];
 char buf4[100];
 char buf5[100];
 
-f32 myPos = 384.f;
+extern u8 getR(u16 r);
+extern u8 getG(u16 r);
+extern u8 getB(u16 r);
+extern s16 sDelayedWarpTimer;
+extern s16 sSourceWarpNodeId;
+#define WARP_OP_WARP_OBJECT 4
+extern s16 sDelayedWarpOp;
+void warp_mario(struct MarioState *m, u8 timer, u8 node) {
+    sDelayedWarpTimer = timer;
+    sSourceWarpNodeId = node;
+    sDelayedWarpOp = WARP_OP_WARP_OBJECT;
+    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x16, getR(lvl_background_color), getG(lvl_background_color), getB(lvl_background_color));
+}
+
+
+f32 myPos = -1067.f;
+f32 myPros = 0.f;
+s16 myTilt = -25000;
 f32 resolve_pos(void) {
     if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
         myPos -= 1.0f;
     }
     if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
         myPos += 1.0f;
+    }
+    if (gPlayer1Controller->buttonDown & R_CBUTTONS) {
+        myTilt+=5;
+    }
+    if (gPlayer1Controller->buttonDown & L_CBUTTONS) {
+        myTilt-=5;
     }
     if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
         if (gCurrAreaIndex == 1) {
@@ -442,6 +465,7 @@ f32 resolve_pos(void) {
     if (gCurrLevelNum == LEVEL_BOB) {
         return -2000.0f;
     }
+    return myPros;
 }
 
 u16 camTimer = 150;
@@ -477,16 +501,17 @@ void handleAreas(struct MarioState *m) {
 
 void try_print_debug_mario_object_info(void) {
     struct MarioState *m = gMarioState;
-    sprintf(myBuf, "%f", newcam_set_height);
+    
+    sprintf(myBuf, "%f", myPos);
     if (gCamera){
 
-    sprintf(buf3, "%d", currentQuote);
-    sprintf(buf2, "%d", nextQuote);
+    sprintf(buf2, "%d", myTilt);
+    sprintf(buf3, "%f", m->pos[2]);
     }
     handleAreas(m);
     checkNewText();
-    // print_text(30, 30, myBuf);
-    // print_text(50, 50, buf2);
+    print_text(30, 30, myBuf);
+    print_text(50, 50, buf2);
     // print_text(70, 70, buf3);
     resolve_pos();
     newcam_sensitivityX = 0;
@@ -516,18 +541,35 @@ void try_print_debug_mario_object_info(void) {
         newcam_yaw = -25000;
     }
     if (gCurrLevelNum == LEVEL_WF) {
-        newcam_set_height = -2100.f;
+        newcam_set_height = myPos;
         newcam_distance_target = -1596.f;
         newcam_tilt = 5600;
-        newcam_yaw = -25000;
+        // newcam_yaw = -25955;
+        newcam_yaw = myTilt;
+    }
+    if (gCurrLevelNum == LEVEL_DDD) {
+        newcam_set_height = 0.f;
+        newcam_distance_target = -1596.f;
+        newcam_tilt = 5600;
+        newcam_yaw = -0x4000;
     }
     if ((gPlayer1Controller->buttonPressed & L_TRIG) && !(isPowerUpInUse) && (m->numCameras > 0) && (m->ridingMower == 0)){
         isPowerUpInUse = 1;
         m->numCameras--;
     }
     if (isPowerUpInUse == 1) {
-        newcam_set_height = -2582.f;
-        newcam_tilt = 10000;
+        if (gCurrLevelNum != LEVEL_BOB) {
+            newcam_set_height = -2582.f;
+            newcam_tilt = 10000;
+            if (gCurrLevelNum == LEVEL_DDD) {
+                newcam_yaw = 0xA000;
+                newcam_tilt = 4000;
+            }
+        }
+        else {
+            newcam_yaw = 0x8000;
+            newcam_tilt = 8000;    
+        }
         camTimer--;
         if (camTimer == 0){
             isPowerUpInUse = 0;
@@ -536,17 +578,19 @@ void try_print_debug_mario_object_info(void) {
     }
     if (gMarioObject){
         if (m->ridingMower == 0)
-            vec3f_set(gMarioObject->header.gfx.scale,2.0f, 2.0f, 2.0f);
+            vec3f_set(gMarioObject->header.gfx.scale, 2.0f, 2.0f, 2.0f);
         else
-            vec3f_set(gMarioObject->header.gfx.scale,1.0f, 1.0f, 1.0f);
+            vec3f_set(gMarioObject->header.gfx.scale, 1.0f, 1.0f, 1.0f);
     }
-
+    if (m->pos[1] - m->floorHeight < 100.f) {
+        m->numDeaths=0;
+    }
 
     if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
-        newcam_set_height -= 1.0f;
+        newcam_tilt -= 1;
     }
     if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
-        newcam_set_height += 1.0f;
+        newcam_tilt += 1;
     }
 }
 
@@ -567,10 +611,10 @@ u8 nextQuote = 0;
 
 u16 TransitionTimes[] = {50, 3, 105, 6};
 
-u8 line1Buf[][64]= {{0}     , {0}     , {0},             {0}};
-u8 line2Buf[][64]= {{0}     , {0}     , {0}  ,           {QUOTE_3L2}   };
-u8 line3Buf[][94]= {{0}     ,  {QUOTE_1L3}, {QUOTE_2L3}, {QUOTE_3L3}};
-u8 line4Buf[][64]= {{0}     ,{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}};
+u8 line1Buf[][64]= {{0}     , {0}     , {QUOTE_2L1},             {0}, {0}, {0}};
+u8 line2Buf[][64]= {{0}     , {0}     , {QUOTE_2L2}  ,           {QUOTE_3L2}, {0}, {0}};
+u8 line3Buf[][94]= {{0}     ,  {QUOTE_1L3}, {0}, {QUOTE_3L3}, {0}, {0}};
+u8 line4Buf[][64]= {{0}     ,{QUOTE_1L4}, {QUOTE_2L4}, {QUOTE_3L4}, {0}, {QUOTE_5L4}};
 
 void print_quote(void) {
     if (line1Buf[currentQuote][0] != 0) printsss(15, 55, line1Buf[currentQuote]);

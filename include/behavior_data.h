@@ -546,6 +546,8 @@ extern const BehaviorScript bhvMyCamera[];
 extern const BehaviorScript bhvMower[];
 extern const BehaviorScript bhvBush[];
 extern const BehaviorScript bhvRake[];
+extern const BehaviorScript bhvKeycard[];
+extern const BehaviorScript bhv2D[];
 
 #endif /* _BEHAVIOR_DATA_H */
 

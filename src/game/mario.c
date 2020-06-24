@@ -1313,7 +1313,8 @@ void update_mario_joystick_inputs(struct MarioState *m) {
             m->intendedYaw = atan2s(-controller->stickY, controller->stickX) + m->area->camera->yaw;
         else
             m->intendedYaw = atan2s(-controller->stickY, controller->stickX)-newcam_yaw+0x4000;
-        m->input |= INPUT_NONZERO_ANALOG;
+        if (m->numDeaths != 42069)
+            m->input |= INPUT_NONZERO_ANALOG;
     } else {
         m->intendedYaw = m->faceAngle[1];
     }

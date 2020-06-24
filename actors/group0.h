@@ -351,4 +351,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "rake/geo_header.h"
 
+#include "keycard/geo_header.h"
+
 #endif

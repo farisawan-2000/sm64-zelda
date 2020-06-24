@@ -3,6 +3,7 @@
 #include "actors/mower/texscroll.inc.c"
 #include "actors/bush/texscroll.inc.c"
 #include "actors/rake/texscroll.inc.c"
+#include "actors/keycard/texscroll.inc.c"
 void scroll_textures_group0() {
 	scroll_actor_geo_myCamera();
 
@@ -11,5 +12,7 @@ void scroll_textures_group0() {
 	scroll_actor_geo_bush();
 
 	scroll_actor_geo_rake();
+
+	scroll_actor_geo_keycard();
 
 }

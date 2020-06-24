@@ -221,19 +221,31 @@
 #define TEXT_HEADSET _("HEADSET")
 
 // Quotes
+
+#define QUOTE_0L3 _("")
+#define QUOTE_0L4 _("")
+
 #define QUOTE_1L3 _("A match made in heaven:")
 #define QUOTE_1L4 _("The mini camera, and the L button")
 
-#define QUOTE_2L3 _("The world's greatest playground.")
-#define QUOTE_2L4 _("Find yourself, or get lost, it's your choice...")
+#define QUOTE_2L1 _("The world's greatest playground.")
+#define QUOTE_2L2 _("Find yourself, or get lost, it's your choice...")
+#define QUOTE_2L4 _("...But the mansion is your goal...")
 
 #define QUOTE_3L2 _("In this barren paradise,")
 #define QUOTE_3L3 _("   sometimes you have to do the cleaning.")
 #define QUOTE_3L4 _("Press L to get in or out.")
 
-#define QUOTE_4L3 _("To find out what man cherishes most,")
-#define QUOTE_4L4 _("observe how they hide their cookie jar.")
+#define QUOTE_4L3 _("Four locks. Four Keycards.")
+#define QUOTE_4L4 _("Find them all to unravel the secret...")
 
+#define QUOTE_5L4 _("Tread Carefully.")
+
+#define QUOTE_6L3 _("To find out what man cherishes most,")
+#define QUOTE_6L4 _("observe how they hide their cookie jar.")
+
+#define QUOTE_7L3 _("Even a broken world can look perfect")
+#define QUOTE_7L4 _("with the right angle...")
 
 
 #define QUOTE_SL2 _("I thought we told you")

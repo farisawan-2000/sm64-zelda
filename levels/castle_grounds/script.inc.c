@@ -14,7 +14,7 @@
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x04, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(0xF1, 3215, -1729, -6303, 0, 0, 0, 0x00000000, bhvMyCamera),
-		OBJECT(MODEL_NONE, 5275, -3988, 2601, 0, 0, 0, 0x0A040000, bhvWarp),
+		OBJECT(MODEL_NONE, 5275, -3974, 2601, 0, 0, 0, 0x0A040000, bhvKeycard),
 		OBJECT(MODEL_NONE, 3171, -1860, -5612, 0, 0, 0, 0x000A0000, bhvWarps74),
 		TERRAIN(castle_grounds_area_2_collision),
 		MACRO_OBJECTS(castle_grounds_area_2_Area_2_macro_objs),
