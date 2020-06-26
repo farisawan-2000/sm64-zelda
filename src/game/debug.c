@@ -506,12 +506,12 @@ void try_print_debug_mario_object_info(void) {
     if (gCamera){
 
     sprintf(buf2, "%d", myTilt);
-    sprintf(buf3, "%f", m->pos[2]);
+    sprintf(buf3, "%f", m->pos[1]);
     }
     handleAreas(m);
     checkNewText();
-    print_text(30, 30, myBuf);
-    print_text(50, 50, buf2);
+    // print_text(30, 30, myBuf);
+    // print_text(50, 50, buf2);
     // print_text(70, 70, buf3);
     resolve_pos();
     newcam_sensitivityX = 0;
@@ -541,11 +541,14 @@ void try_print_debug_mario_object_info(void) {
         newcam_yaw = -25000;
     }
     if (gCurrLevelNum == LEVEL_WF) {
-        newcam_set_height = myPos;
+        f32 r = -989.f;
+        // newcam_modeflags &= ~(0 | NC_FLAG_FOCUSY);
+        newcam_set_height = r;
+        // newcam_set_height = m->floorHeight;
         newcam_distance_target = -1596.f;
         newcam_tilt = 5600;
-        // newcam_yaw = -25955;
-        newcam_yaw = myTilt;
+        newcam_yaw = -26290;
+        // newcam_yaw = 905.f;
     }
     if (gCurrLevelNum == LEVEL_DDD) {
         newcam_set_height = 0.f;

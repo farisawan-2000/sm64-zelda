@@ -244,8 +244,8 @@
 #define QUOTE_6L3 _("To find out what man cherishes most,")
 #define QUOTE_6L4 _("observe how they hide their cookie jar.")
 
-#define QUOTE_7L3 _("Even a broken world can look perfect")
-#define QUOTE_7L4 _("with the right angle...")
+#define QUOTE_7L3 _("Who puts their gardening tools in here?")
+#define QUOTE_7L4 _("Imagine that!")
 
 
 #define QUOTE_SL2 _("I thought we told you")
